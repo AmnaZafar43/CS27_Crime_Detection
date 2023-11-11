@@ -1,3 +1,4 @@
+import 'package:crime_detection/windows/crime_type.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -9,6 +10,7 @@ class ReportCrime extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         title: Text('Report Crime'),
@@ -25,11 +27,12 @@ class ReportCrime extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Container(
+            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 12),
             height: 300,
             color: Color(0xFF52B6DF),
             child: Center(
               child: Text(
-                'Visit your nearest police station in case of any problem, we are here for you.\nWe are your friends.',
+                'Visit your nearest police station in case of any problem, we are here for you.\n\nWe are your friends.',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: 20,
@@ -45,15 +48,22 @@ class ReportCrime extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Latest News\n\nGovernment launches new national hate crime awareness campaign.\n\n',
+                  'Latest News',
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                Text(
+                  '\nGovernment launches new national hate crime awareness campaign such as investing in law enforcement training and technology, such as forensics, surveillance, and data analysis tools. \n\n',
                   style: TextStyle(
                     color: Color(0xFF3E3E3E),
                     fontSize: 16,
-                    // fontWeight: FontWeight.bold,
                     // decoration: TextDecoration.underline,
                   ),
                 ),
-                SizedBox(height: 8),
+                // SizedBox(height: 0),
                 InkWell(
                   onTap: () => launchUrl(Uri.parse(
                       'EgZjaHJvbWUqDAgAEAAYDRixAxiABDIMCAAQABgNGLEDGIAEMgwIARAAGA0YsQMYgAQyDwgCEAAYDRiDARixAxiABDIMCAMQABgNGLEDGIAEMg8IBBAAGA0YgwEYsQMYgAQyCQgFEAAYDRiABDIMCAYQABgNGLEDGIAEMgwIBxAAGA0YsQMYgAQyDwgIEAAYDRiDARixAxiABDIJCAkQABgNGIAE0gEINTY2MmowajeoAgCwAgA')),
@@ -63,12 +73,13 @@ class ReportCrime extends StatelessWidget {
                         fontWeight: FontWeight.bold,
                         fontSize: 16,
                         decoration: TextDecoration.underline,
-                        color: Colors.black),
+                        color: Colors.red),
                   ),
                 )
               ],
             ),
           ),
+          SizedBox(height: 110),
           Container(
             height: 100,
             color: Colors.blue, // Adjust color as needed
@@ -86,16 +97,28 @@ class ReportCrime extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 70),
-                Container(
-                  width: 120,
-                  height: 40,
-                  color: Color(0xFFBBBBBB),
-                  alignment: Alignment.center,
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const SelectCrime()),
+                    );
+                  },
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all(
+                        Color.fromARGB(255, 160, 162, 165)),
+                    shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    )),
+                  ),
                   child: Text(
-                    'Report a crime',
+                    'Report',
                     style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 16,
+                      color: Colors.white,
+                      fontSize: 17,
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.w600,
                     ),
                   ),
                 ),
