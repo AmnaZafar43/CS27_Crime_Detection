@@ -1,9 +1,17 @@
+import 'package:crime_detection/windows/add_criminal.dart';
 import 'package:crime_detection/windows/sign_in.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class CoverScreen extends StatelessWidget {
+class CoverScreen extends StatefulWidget {
   const CoverScreen({super.key});
 
+  @override
+  State<CoverScreen> createState() => _CoverScreenState();
+}
+
+class _CoverScreenState extends State<CoverScreen> {
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
@@ -91,12 +99,7 @@ class CoverScreen extends StatelessWidget {
                 ),
                 child: InkWell(
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const SignIn(),
-                      ),
-                    );
+                    onNextBtnPress();
                   },
                   child: Text(
                     'Let’s Start',
@@ -116,5 +119,23 @@ class CoverScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  onNextBtnPress() async {
+    if (_auth.currentUser == null) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const SignIn(),
+        ),
+      );
+    } else {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const AddCriminal(),
+        ),
+      );
+    }
   }
 }

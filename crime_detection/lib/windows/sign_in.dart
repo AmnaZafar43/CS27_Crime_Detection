@@ -1,15 +1,29 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:crime_detection/windows/cover_page.dart';
 import 'package:crime_detection/windows/sign_up.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-class SignIn extends StatelessWidget {
+import '../Models/firebase_methods.dart';
+import '../utils/toast.dart';
+
+class SignIn extends StatefulWidget {
   const SignIn({super.key});
+
+  @override
+  State<SignIn> createState() => _SignInState();
+}
+
+class _SignInState extends State<SignIn> {
+  final TextEditingController _email = TextEditingController();
+  final TextEditingController _password = TextEditingController();
+  bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
-    final screenWidth = MediaQuery.of(context).size.width;
+    // final screenWidth = MediaQuery.of(context).size.width;
     Size s = MediaQuery.sizeOf(context);
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -18,7 +32,7 @@ class SignIn extends StatelessWidget {
         elevation: 0,
         leading: IconButton(
           color: Colors.black,
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => const CoverScreen()));
@@ -36,10 +50,10 @@ class SignIn extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             SizedBox(
-              height: s.height * 0.3,
+              height: s.height * 0.1,
             ),
             const Text(
               'Email',
@@ -55,11 +69,13 @@ class SignIn extends StatelessWidget {
                 border: Border.all(width: 1, color: Colors.black),
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: const Padding(
-                padding: EdgeInsets.all(6.0),
+              child: Padding(
+                padding: const EdgeInsets.all(6.0),
                 child: TextField(
+                  controller: _email,
+                  style: const TextStyle(color: Colors.black),
                   textAlign: TextAlign.justify,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     border: InputBorder.none,
                   ),
                 ),
@@ -80,29 +96,41 @@ class SignIn extends StatelessWidget {
                 border: Border.all(width: 1, color: Colors.black),
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: const Padding(
-                padding: EdgeInsets.all(6.0),
+              child: Padding(
+                padding: const EdgeInsets.all(6.0),
                 child: TextField(
-                  decoration: InputDecoration(
+                  controller: _password,
+                  style: const TextStyle(color: Colors.black),
+                  decoration: const InputDecoration(
                     border: InputBorder.none,
                   ),
                 ),
               ),
             ),
             const SizedBox(height: 13),
-            const Text(
-              'Forgot Password?',
-              style: TextStyle(
-                color: Colors.black,
-                fontSize: 15,
-                fontWeight: FontWeight.w400,
-              ),
+            Row(
+              children: [
+                TextButton(
+                  onPressed: () {},
+                  child: const Text(
+                    'Forgot Password?',
+                    style: TextStyle(
+                      color: Color(0xFF52B6DF),
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ),
+              ],
             ),
-            const SizedBox(height: 120),
+            SizedBox(
+              height: screenHeight * 0.2,
+            ),
             // Sign Up Button
             ElevatedButton(
               onPressed: () {
                 // Handle sign-up here
+                loginButtonPress();
               },
               style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(Color(0xFF52B6DF)),
@@ -110,23 +138,26 @@ class SignIn extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10),
                 )),
               ),
-              child: Text(
-                'Login',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 17,
-                  fontFamily: 'Poppins',
-                  fontWeight: FontWeight.w600,
-                ),
-              ),
+              child: isLoading
+                  ? const Center(
+                      child: CircularProgressIndicator(),
+                    )
+                  : const Text(
+                      'Login',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 17,
+                        fontFamily: 'Poppins',
+                        fontWeight: FontWeight.w600,
+                      ),
+                    ),
             ),
             SizedBox(height: screenHeight * 0.03), // Vertical spacing
-
             // Already have an account? Login
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
+                const Text(
                   'Do not have an account? ',
                   style: TextStyle(
                     color: Color(0xFF334155),
@@ -156,5 +187,33 @@ class SignIn extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void loginButtonPress() async {
+    try {
+      setState(() {
+        isLoading = true;
+      });
+      if (_email.text.isEmpty || _password.text.isEmpty) {
+        Utils().showToast(context, 'Text box should not be empty');
+      } else {
+        await FirebaseMethods().login(
+          _email.text,
+          _password.text,
+        );
+      }
+      Utils().showToast(
+        context,
+        'Login successfully',
+      );
+    } catch (e) {
+      Utils().showToast(
+        context,
+        e.toString(),
+      );
+    }
+    setState(() {
+      isLoading = false;
+    });
   }
 }

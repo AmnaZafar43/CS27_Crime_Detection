@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "473333565926",
+    "project_id": "crime-detection-system",
+    "storage_bucket": "crime-detection-system.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:473333565926:android:ec95390b23ee32d5fc6e27",
+        "android_client_info": {
+          "package_name": "com.example.crime_detection"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCyGoUQonwVfoAyK_2l0dCWAoojvUtrFNw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
