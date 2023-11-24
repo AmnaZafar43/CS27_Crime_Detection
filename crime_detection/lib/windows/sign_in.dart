@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 
 import '../Models/firebase_methods.dart';
 import '../utils/toast.dart';
+import 'civilian_dashboard.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({super.key});
@@ -177,7 +178,8 @@ class _SignInState extends State<SignIn> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => const SignUp()),
+                              builder: (context) => const SignUp(),
+                            ),
                           );
                         }),
                 )
@@ -205,6 +207,12 @@ class _SignInState extends State<SignIn> {
       Utils().showToast(
         context,
         'Login successfully',
+      );
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const CivilianDashboard(),
+        ),
       );
     } catch (e) {
       Utils().showToast(

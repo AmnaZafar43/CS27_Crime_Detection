@@ -1,7 +1,8 @@
-import 'package:crime_detection/windows/add_criminal.dart';
-import 'package:crime_detection/windows/sign_in.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+import '../windows/civilian_dashboard.dart';
+import '../windows/sign_in.dart';
 
 class CoverScreen extends StatefulWidget {
   const CoverScreen({super.key});
@@ -12,6 +13,7 @@ class CoverScreen extends StatefulWidget {
 
 class _CoverScreenState extends State<CoverScreen> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
+  bool _isLoading = false;
   @override
   Widget build(BuildContext context) {
     final double screenWidth = MediaQuery.of(context).size.width;
@@ -101,17 +103,21 @@ class _CoverScreenState extends State<CoverScreen> {
                   onTap: () {
                     onNextBtnPress();
                   },
-                  child: Text(
-                    'Let’s Start',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: screenWidth * 0.045, // 17 / 375
-                      fontFamily: 'Poppins',
-                      fontWeight: FontWeight.w600,
-                      height: 1.2,
-                    ),
-                  ),
+                  child: _isLoading
+                      ? const Center(
+                          child: CircularProgressIndicator(),
+                        )
+                      : Text(
+                          'Let’s Start',
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: screenWidth * 0.045, // 17 / 375
+                            fontFamily: 'Poppins',
+                            fontWeight: FontWeight.w600,
+                            height: 1.2,
+                          ),
+                        ),
                 ),
               ),
             ),
@@ -122,6 +128,9 @@ class _CoverScreenState extends State<CoverScreen> {
   }
 
   onNextBtnPress() async {
+    setState(() {
+      _isLoading = true;
+    });
     if (_auth.currentUser == null) {
       Navigator.push(
         context,
@@ -133,9 +142,12 @@ class _CoverScreenState extends State<CoverScreen> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => const AddCriminal(),
+          builder: (context) => const CivilianDashboard(),
         ),
       );
     }
+    setState(() {
+      _isLoading = false;
+    });
   }
 }

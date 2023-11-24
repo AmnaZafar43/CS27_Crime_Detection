@@ -38,7 +38,7 @@ class FirebaseMethods {
         password: password,
       );
       await _firebaseFirestore
-          .collection('civilians')
+          .collection('Users')
           .doc(user.user!.uid)
           .set(u.toMap());
     } catch (e) {
