@@ -151,7 +151,7 @@ class _OfficerDetailsState extends State<OfficerDetails> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const ViewCriminal(),
+                        builder: (context) => const ViewOfficer(),
                       ),
                     );
                   },

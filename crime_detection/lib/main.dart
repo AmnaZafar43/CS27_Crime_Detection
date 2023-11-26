@@ -2,6 +2,7 @@ import 'package:crime_detection/windows/add_criminal.dart';
 import 'package:crime_detection/windows/add_officer.dart';
 import 'package:crime_detection/windows/civilian_dashboard.dart';
 import 'package:crime_detection/windows/cover_page.dart';
+import 'package:crime_detection/windows/officer_details.dart';
 import 'package:crime_detection/windows/view_criminal.dart';
 import 'package:crime_detection/windows/view_officer.dart';
 import 'package:flutter/material.dart';
