@@ -34,11 +34,11 @@ class _CriminalDetailsState extends State<CriminalDetails> {
   final fireStore =
       FirebaseFirestore.instance.collection('criminals').snapshots();
   CollectionReference ref = FirebaseFirestore.instance.collection('criminals');
-  bool _isLoading = false;
+  // bool _isLoading = false;
 //
   @override
   Widget build(BuildContext context) {
-    final double screenWidth = MediaQuery.of(context).size.width;
+    // final double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
         appBar: AppBar(
           backgroundColor: const Color(0xFF52B6DF),
@@ -184,7 +184,6 @@ class _CriminalDetailsState extends State<CriminalDetails> {
                       fontSize: 17,
                       fontFamily: 'Poppins',
                       fontWeight: FontWeight.w600,
-                      // height: 0.2,
                     ),
                   ),
                 ),

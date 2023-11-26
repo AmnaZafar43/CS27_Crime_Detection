@@ -10,7 +10,7 @@ class ViewCriminal extends StatefulWidget {
 }
 
 class _ViewCriminalState extends State<ViewCriminal> {
-  bool _isLoading = false;
+  // bool _isLoading = false;
   final fireStore =
       FirebaseFirestore.instance.collection('criminals').snapshots();
   @override
@@ -59,7 +59,6 @@ class _ViewCriminalState extends State<ViewCriminal> {
                           snapshot.data!.docs[position]['Charge'].toString(),
                           style: const TextStyle(
                             color: Colors.red,
-                            // backgroundColor: Colors.grey
                           ),
                         ),
                         trailing: const Text(

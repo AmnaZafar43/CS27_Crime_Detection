@@ -125,7 +125,6 @@ class _UpdateCriminalState extends State<UpdateCriminal> {
                   labelStyle: const TextStyle(
                     color: Colors.black,
                     fontFamily: 'Poppins',
-                    // fontWeight: FontWeight.w400,
                     letterSpacing: 0.20,
                   ),
                   enabledBorder: OutlineInputBorder(
@@ -151,7 +150,6 @@ class _UpdateCriminalState extends State<UpdateCriminal> {
                   labelStyle: TextStyle(
                     color: Colors.black,
                     fontFamily: 'Poppins',
-                    // fontWeight: FontWeight.w400,
                     letterSpacing: 0.20,
                   ),
                   enabledBorder: OutlineInputBorder(
@@ -177,7 +175,6 @@ class _UpdateCriminalState extends State<UpdateCriminal> {
                   labelStyle: TextStyle(
                     color: Colors.black,
                     fontFamily: 'Poppins',
-                    // fontWeight: FontWeight.w400,
                     letterSpacing: 0.20,
                   ),
                   enabledBorder: OutlineInputBorder(
@@ -203,7 +200,6 @@ class _UpdateCriminalState extends State<UpdateCriminal> {
                   labelStyle: TextStyle(
                     color: Colors.black,
                     fontFamily: 'Poppins',
-                    // fontWeight: FontWeight.w400,
                     letterSpacing: 0.20,
                   ),
                   enabledBorder: OutlineInputBorder(
@@ -229,7 +225,6 @@ class _UpdateCriminalState extends State<UpdateCriminal> {
                   labelStyle: TextStyle(
                     color: Colors.black,
                     fontFamily: 'Poppins',
-                    // fontWeight: FontWeight.w400,
                     letterSpacing: 0.20,
                   ),
                   enabledBorder: OutlineInputBorder(
@@ -255,7 +250,6 @@ class _UpdateCriminalState extends State<UpdateCriminal> {
                   labelStyle: TextStyle(
                     color: Colors.black,
                     fontFamily: 'Poppins',
-                    // fontWeight: FontWeight.w400,
                     letterSpacing: 0.20,
                   ),
                   enabledBorder: OutlineInputBorder(
@@ -300,7 +294,6 @@ class _UpdateCriminalState extends State<UpdateCriminal> {
                   labelStyle: TextStyle(
                     color: Colors.black,
                     fontFamily: 'Poppins',
-                    // fontWeight: FontWeight.w400,
                     letterSpacing: 0.20,
                   ),
                   enabledBorder: OutlineInputBorder(
@@ -330,7 +323,6 @@ class _UpdateCriminalState extends State<UpdateCriminal> {
                       '': DateTime.now(),
                     });
                     print("this");
-                    // same error
                   } catch (e) {
                     print(e);
                     Utils().showToast(
@@ -374,7 +366,6 @@ class _UpdateCriminalState extends State<UpdateCriminal> {
             ),
           ),
           TextField(
-              // Add text field properties
               ),
         ],
       ),
