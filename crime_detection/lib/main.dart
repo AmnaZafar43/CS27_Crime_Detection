@@ -1,5 +1,6 @@
 import 'package:crime_detection/windows/add_criminal.dart';
 import 'package:crime_detection/windows/add_officer.dart';
+import 'package:crime_detection/windows/add_police_station.dart';
 import 'package:crime_detection/windows/civilian_dashboard.dart';
 import 'package:crime_detection/windows/cover_page.dart';
 import 'package:crime_detection/windows/officer_details.dart';
@@ -29,7 +30,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData.dark().copyWith(
         scaffoldBackgroundColor: const Color.fromARGB(255, 255, 255, 255),
       ),
-      home: ViewOfficer(),
+      home: AddPoliceStation(),
     );
   }
 }

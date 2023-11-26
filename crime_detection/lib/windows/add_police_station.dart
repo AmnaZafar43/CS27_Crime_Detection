@@ -1,19 +1,41 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crime_detection/windows/crime_type.dart';
 import 'package:flutter/material.dart';
+import '../utils/toast.dart';
 
-class AddPoliceStation extends StatelessWidget {
+class AddPoliceStation extends StatefulWidget {
   const AddPoliceStation({super.key});
+
+  @override
+  State<AddPoliceStation> createState() => _AddPoliceStationState();
+}
+
+class _AddPoliceStationState extends State<AddPoliceStation> {
+  final fireStore = FirebaseFirestore.instance.collection('PoliceStation');
+
+  final TextEditingController _Name = TextEditingController();
+
+  final TextEditingController _noOfBranches = TextEditingController();
+
+  final TextEditingController _branchNumber = TextEditingController();
+
+  final TextEditingController _district = TextEditingController();
+
+  final TextEditingController _province = TextEditingController();
+
+  final TextEditingController _noOfPoliceOfficer = TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color(0xFF52B6DF),
+        backgroundColor:const Color(0xFF52B6DF),
         title: const Text('Police Station'),
         centerTitle: true,
         leading: IconButton(
           color: Colors.white,
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => const SelectCrime()));
@@ -26,9 +48,9 @@ class AddPoliceStation extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Padding(
+              const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 7, vertical: 7)),
-              Text(
+              const Text(
                 'Please fill out the relevant information in each section.',
                 style: TextStyle(
                   color: Color(0xFF737373),
@@ -60,6 +82,7 @@ class AddPoliceStation extends StatelessWidget {
                 style: TextStyle(color: Colors.black),
               ),
               TextField(
+                controller: _Name,
                 style: TextStyle(color: Colors.black),
                 decoration: InputDecoration(
                   isDense: true,
@@ -85,6 +108,7 @@ class AddPoliceStation extends StatelessWidget {
                 style: TextStyle(color: Colors.black),
               ),
               TextField(
+                controller: _noOfBranches,
                 style: TextStyle(color: Colors.black),
                 decoration: InputDecoration(
                   isDense: true,
@@ -110,6 +134,7 @@ class AddPoliceStation extends StatelessWidget {
                 style: TextStyle(color: Colors.black),
               ),
               TextField(
+                controller: _branchNumber,
                 style: TextStyle(color: Colors.black),
                 decoration: InputDecoration(
                   isDense: true,
@@ -135,6 +160,7 @@ class AddPoliceStation extends StatelessWidget {
                 style: TextStyle(color: Colors.black),
               ),
               TextField(
+                controller: _district,
                 style: TextStyle(color: Colors.black),
                 decoration: InputDecoration(
                   isDense: true,
@@ -160,6 +186,7 @@ class AddPoliceStation extends StatelessWidget {
                 style: TextStyle(color: Colors.black),
               ),
               TextField(
+                controller: _province,
                 style: TextStyle(color: Colors.black),
                 decoration: InputDecoration(
                   isDense: true,
@@ -185,6 +212,7 @@ class AddPoliceStation extends StatelessWidget {
                 style: TextStyle(color: Colors.black),
               ),
               TextField(
+                controller: _noOfPoliceOfficer,
                 style: TextStyle(color: Colors.black),
                 decoration: InputDecoration(
                   isDense: true,
@@ -206,9 +234,33 @@ class AddPoliceStation extends StatelessWidget {
               SizedBox(height: 110),
               ElevatedButton(
                 onPressed: () {
-                  // Add functionality for the button
+                  try {
+                    String id =
+                        DateTime.now().millisecondsSinceEpoch.toString();
+                    fireStore.doc(id).set({
+                      'Police Station Name': _Name.text.toString(),
+                      'Number of Branches': _noOfBranches.text.toString(),
+                      'Branch Number': _branchNumber.text.toString(),
+                      'District': _district.text.toString(),
+                      'Province': _province.text.toString(),
+                      'Number of Police Officers': _noOfPoliceOfficer.text.toString(),
+                      'id': id,
+                      'createAt': DateTime.now(),
+                      'updateAt': DateTime.now(),
+                      'active': true,
+                    }).then((value) {
+                      Utils().showToast(context, 'Successfully Added!!');
+                    }).onError((error, stackTrace) {
+                      Utils().showToast(context, error.toString());
+                    });
+                  } catch (e) {
+                    Utils().showToast(
+                      context,
+                      e.toString(),
+                    );
+                  }
                 },
-                child: Text(
+                child: const Text(
                   'Add',
                   style: TextStyle(
                     color: Colors.white,
@@ -234,7 +286,7 @@ class AddPoliceStation extends StatelessWidget {
         children: [
           Text(
             label,
-            style: TextStyle(
+            style: const TextStyle(
               color: Color(0xFF737373),
               fontSize: 15,
               fontFamily: 'Gilroy-Medium',
@@ -242,7 +294,7 @@ class AddPoliceStation extends StatelessWidget {
               height: 1.5,
             ),
           ),
-          TextField(
+          const TextField(
               // Add text field properties
               ),
         ],
