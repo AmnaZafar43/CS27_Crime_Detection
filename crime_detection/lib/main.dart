@@ -6,8 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
-// ...
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -32,3 +30,4 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+// sabar kr lo ? hua ya nhi nhi same error

@@ -10,7 +10,7 @@ class ViewCriminal extends StatefulWidget {
 }
 
 class _ViewCriminalState extends State<ViewCriminal> {
-  bool isLoading = false;
+  bool _isLoading = false;
   final fireStore =
       FirebaseFirestore.instance.collection('criminals').snapshots();
   @override
@@ -88,9 +88,18 @@ class _ViewCriminalState extends State<ViewCriminal> {
                                         gender: snapshot
                                             .data!.docs[position]['Gender']
                                             .toString(),
-                                        date: DateTime.parse(snapshot.data!
-                                            .docs[position]['Date of Imprison']
-                                            .toString()),
+                                        date: DateTime.parse(
+                                          snapshot
+                                              .data!
+                                              .docs[position]
+                                                  ['Date of Imprison']
+                                              .toString(),
+                                        ),
+                                        wanted: snapshot
+                                            .data!.docs[position]['Most Wanted']
+                                            .toString(),
+                                        id: snapshot.data!.docs[position]['id']
+                                            .toString(),
                                         charge: snapshot
                                             .data!.docs[position]['Charge']
                                             .toString(),

@@ -308,7 +308,10 @@ class _AddCriminalState extends State<AddCriminal> {
                           'Charge': _charge.text.toString(),
                           'Date of Imprison' : dateTime.toString(),
                           'Most Wanted': _wanted.text.toString(),
-                          'id': id
+                          'id': id,
+                          'createAt':DateTime.now(),
+                          'updateAt':DateTime.now(),
+                          'active':true,
                         })
                         .then((value) {})
                         .onError((error, stackTrace) {
