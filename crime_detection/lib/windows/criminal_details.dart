@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crime_detection/utils/toast.dart';
 import 'package:crime_detection/windows/update_criminal.dart';
@@ -67,7 +69,7 @@ class _CriminalDetailsState extends State<CriminalDetails> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(height: 20),
+        const        SizedBox(height: 20),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -78,7 +80,7 @@ class _CriminalDetailsState extends State<CriminalDetails> {
                     ),
                     Text(
                       widget.firstName.toString(),
-                      style: TextStyle(color: Colors.black),
+                      style: const TextStyle(color: Colors.black),
                     ),
                     const Text(
                       'Last Name',
@@ -87,7 +89,7 @@ class _CriminalDetailsState extends State<CriminalDetails> {
                     ),
                     Text(
                       widget.lastName.toString(),
-                      style: TextStyle(color: Colors.black),
+                      style: const TextStyle(color: Colors.black),
                     ),
                     const Text(
                       'Gender',
@@ -96,7 +98,7 @@ class _CriminalDetailsState extends State<CriminalDetails> {
                     ),
                     Text(
                       widget.gender.toString(),
-                      style: TextStyle(color: Colors.black),
+                      style: const TextStyle(color: Colors.black),
                     ),
                     const Text(
                       'Age',
@@ -105,7 +107,7 @@ class _CriminalDetailsState extends State<CriminalDetails> {
                     ),
                     Text(
                       widget.age.toString(),
-                      style: TextStyle(color: Colors.black),
+                      style: const TextStyle(color: Colors.black),
                     ),
                     const Text(
                       'Charge',
@@ -114,7 +116,7 @@ class _CriminalDetailsState extends State<CriminalDetails> {
                     ),
                     Text(
                       widget.charge.toString(),
-                      style: TextStyle(color: Colors.black),
+                      style: const TextStyle(color: Colors.black),
                     ),
                     const Text(
                       'Address',
@@ -123,7 +125,7 @@ class _CriminalDetailsState extends State<CriminalDetails> {
                     ),
                     Text(
                       widget.address.toString(),
-                      style: TextStyle(color: Colors.black),
+                      style: const TextStyle(color: Colors.black),
                     ),
                     const Text(
                       'Date of Imprison',

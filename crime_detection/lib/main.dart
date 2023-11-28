@@ -3,6 +3,8 @@ import 'package:crime_detection/windows/add_officer.dart';
 import 'package:crime_detection/windows/add_police_station.dart';
 import 'package:crime_detection/windows/civilian_dashboard.dart';
 import 'package:crime_detection/windows/cover_page.dart';
+import 'package:crime_detection/windows/liscense_applied.dart';
+import 'package:crime_detection/windows/liscense_information.dart';
 import 'package:crime_detection/windows/officer_details.dart';
 import 'package:crime_detection/windows/view_criminal.dart';
 import 'package:crime_detection/windows/view_officer.dart';
@@ -12,11 +14,13 @@ import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
 void main() async {
+  // code for initialization of firebase
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
   runApp(
+    // running point for my app
     const MyApp(),
   );
 }
@@ -27,11 +31,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      // debug banner will not shown on right side
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark().copyWith(
+        // set background color for all screens
         scaffoldBackgroundColor: const Color.fromARGB(255, 255, 255, 255),
       ),
-      home: ViewStation(),
+      // call the screen here which you want to run first
+      home: const ViewCriminal(),
     );
   }
 }

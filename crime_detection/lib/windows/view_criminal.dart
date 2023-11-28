@@ -69,40 +69,37 @@ class _ViewCriminalState extends State<ViewCriminal> {
                         ),
                         onTap: () {
                           Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => CriminalDetails(
-                                        firstName: snapshot
-                                            .data!.docs[position]['First Name']
-                                            .toString(),
-                                        lastName: snapshot
-                                            .data!.docs[position]['Last Name']
-                                            .toString(),
-                                        age: snapshot
-                                            .data!.docs[position]['Age']
-                                            .toString(),
-                                        address: snapshot
-                                            .data!.docs[position]['Address']
-                                            .toString(),
-                                        gender: snapshot
-                                            .data!.docs[position]['Gender']
-                                            .toString(),
-                                        date: DateTime.parse(
-                                          snapshot
-                                              .data!
-                                              .docs[position]
-                                                  ['Date of Imprison']
-                                              .toString(),
-                                        ),
-                                        wanted: snapshot
-                                            .data!.docs[position]['Most Wanted']
-                                            .toString(),
-                                        id: snapshot.data!.docs[position]['id']
-                                            .toString(),
-                                        charge: snapshot
-                                            .data!.docs[position]['Charge']
-                                            .toString(),
-                                      )));
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => CriminalDetails(
+                                firstName: snapshot
+                                    .data!.docs[position]['First Name']
+                                    .toString(),
+                                lastName: snapshot
+                                    .data!.docs[position]['Last Name']
+                                    .toString(),
+                                age: snapshot.data!.docs[position]['Age']
+                                    .toString(),
+                                address: snapshot
+                                    .data!.docs[position]['Address']
+                                    .toString(),
+                                gender: snapshot.data!.docs[position]['Gender']
+                                    .toString(),
+                                date: DateTime.parse(
+                                  snapshot
+                                      .data!.docs[position]['Date of Imprison']
+                                      .toString(),
+                                ),
+                                wanted: snapshot
+                                    .data!.docs[position]['Most Wanted']
+                                    .toString(),
+                                id: snapshot.data!.docs[position]['id']
+                                    .toString(),
+                                charge: snapshot.data!.docs[position]['Charge']
+                                    .toString(),
+                              ),
+                            ),
+                          );
                         },
                       ),
                     );

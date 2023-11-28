@@ -1,7 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crime_detection/utils/toast.dart';
-import 'package:crime_detection/windows/update_criminal.dart';
-import 'package:crime_detection/windows/view_criminal.dart';
 import 'package:crime_detection/windows/view_officer.dart';
 import 'package:flutter/material.dart';
 
@@ -66,7 +64,7 @@ class _OfficerDetailsState extends State<OfficerDetails> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [

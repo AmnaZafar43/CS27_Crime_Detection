@@ -5,7 +5,7 @@ import 'package:crime_detection/windows/sign_up.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
-import '../Models/firebase_methods.dart';
+import '../firebase/firebase_methods.dart';
 import '../utils/toast.dart';
 import 'civilian_dashboard.dart';
 

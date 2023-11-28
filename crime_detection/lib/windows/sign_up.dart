@@ -1,10 +1,11 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'package:crime_detection/Models/firebase_methods.dart';
 import 'package:crime_detection/utils/toast.dart';
 import 'package:crime_detection/windows/sign_in.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+
+import '../firebase/firebase_methods.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -19,7 +20,7 @@ class _SignUpState extends State<SignUp> {
   final TextEditingController _email = TextEditingController();
   final TextEditingController _password = TextEditingController();
   bool isLoading = false;
- 
+
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;

@@ -1,9 +1,40 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crime_detection/windows/crime_type.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/src/material/dropdown.dart';
 
-class LiscenseInformation extends StatelessWidget {
+class LiscenseInformation extends StatefulWidget {
   const LiscenseInformation({super.key});
 
+  @override
+  State<LiscenseInformation> createState() => _LiscenseInformationState();
+}
+
+class _LiscenseInformationState extends State<LiscenseInformation> {
+  final fireStore =
+      FirebaseFirestore.instance.collection('LiscenseInformation');
+
+  final TextEditingController _firstName = TextEditingController();
+
+  final TextEditingController _lastName = TextEditingController();
+
+  final TextEditingController _age = TextEditingController();
+
+  final TextEditingController _cnic = TextEditingController();
+
+  final TextEditingController _phone = TextEditingController();
+
+  final TextEditingController _address = TextEditingController();
+
+  final TextEditingController _district = TextEditingController();
+
+  final TextEditingController _typeLiscense = TextEditingController();
+
+  final TextEditingController _typeWeapon = TextEditingController();
+
+  final TextEditingController _purpose = TextEditingController();
+  String _dropDownValue = '';
+  String _dropDownValue2 = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -60,6 +91,7 @@ class LiscenseInformation extends StatelessWidget {
                 style: TextStyle(color: Colors.black),
               ),
               TextField(
+                controller: _firstName,
                 style: TextStyle(color: Colors.black),
                 decoration: InputDecoration(
                   isDense: true,
@@ -85,6 +117,7 @@ class LiscenseInformation extends StatelessWidget {
                 style: TextStyle(color: Colors.black),
               ),
               TextField(
+                controller: _lastName,
                 style: TextStyle(color: Colors.black),
                 decoration: InputDecoration(
                   isDense: true,
@@ -110,6 +143,7 @@ class LiscenseInformation extends StatelessWidget {
                 style: TextStyle(color: Colors.black),
               ),
               TextField(
+                controller: _age,
                 style: TextStyle(color: Colors.black),
                 decoration: InputDecoration(
                   isDense: true,
@@ -135,6 +169,7 @@ class LiscenseInformation extends StatelessWidget {
                 style: TextStyle(color: Colors.black),
               ),
               TextField(
+                controller: _cnic,
                 style: TextStyle(color: Colors.black),
                 decoration: InputDecoration(
                   isDense: true,
@@ -160,6 +195,7 @@ class LiscenseInformation extends StatelessWidget {
                 style: TextStyle(color: Colors.black),
               ),
               TextField(
+                controller: _phone,
                 style: TextStyle(color: Colors.black),
                 decoration: InputDecoration(
                   isDense: true,
@@ -167,7 +203,6 @@ class LiscenseInformation extends StatelessWidget {
                   labelStyle: TextStyle(
                     color: Colors.black,
                     fontFamily: 'Poppins',
-                    // fontWeight: FontWeight.w400,
                     letterSpacing: 0.20,
                   ),
                   enabledBorder: OutlineInputBorder(
@@ -185,6 +220,7 @@ class LiscenseInformation extends StatelessWidget {
                 style: TextStyle(color: Colors.black),
               ),
               TextField(
+                controller: _address,
                 style: TextStyle(color: Colors.black),
                 decoration: InputDecoration(
                   isDense: true,
@@ -210,6 +246,7 @@ class LiscenseInformation extends StatelessWidget {
                 style: TextStyle(color: Colors.black),
               ),
               TextField(
+                controller: _district,
                 style: TextStyle(color: Colors.black),
                 decoration: InputDecoration(
                   isDense: true,
@@ -230,11 +267,86 @@ class LiscenseInformation extends StatelessWidget {
               ),
               SizedBox(height: 15),
               Text(
+                'Select Type of Liscense',
+                style: TextStyle(color: Colors.black),
+              ),
+              DropdownButton(
+                hint: _dropDownValue == null
+                    ? Text(
+                        'Select type of liscense',
+                        style: TextStyle(color: Colors.black),
+                      )
+                    : Text(
+                        _dropDownValue,
+                        style: TextStyle(color: Colors.blue),
+                      ),
+                isExpanded: true,
+                iconSize: 30.0,
+                style: TextStyle(color: Colors.blue),
+                items: ['Prohibited Liscense', 'Non-Prohibited Liscense'].map(
+                  (val) {
+                    return DropdownMenuItem<String>(
+                      value: val,
+                      child: Text(val),
+                    );
+                  },
+                ).toList(),
+                onChanged: (val) {
+                  setState(
+                    () {
+                      _dropDownValue = val.toString();
+                    },
+                  );
+                },
+              ),
+              SizedBox(height: 15),
+              Text(
+                'Select Type of Weapon',
+                style: TextStyle(color: Colors.black),
+              ),
+              DropdownButton(
+                hint: _dropDownValue2 == null
+                    ? Text(
+                        'Select type of liscense',
+                        style: TextStyle(color: Colors.black),
+                      )
+                    : Text(
+                        _dropDownValue2,
+                        style: TextStyle(color: Colors.blue),
+                      ),
+                isExpanded: true,
+                iconSize: 30.0,
+                style: TextStyle(color: Colors.blue),
+                items: [
+                  'Revolver or Pistol over .46 inches bore',
+                  'Rifle 303 and all semi/automatic rifles',
+                  'Rifle G-III',
+                  'StenGun',
+                  'Carbine'
+                ].map(
+                  (val1) {
+                    return DropdownMenuItem<String>(
+                      value: val1,
+                      child: Text(val1),
+                    );
+                  },
+                ).toList(),
+                onChanged: (val1) {
+                  setState(
+                    () {
+                      _dropDownValue2 = val1.toString();
+                    },
+                  );
+                },
+              ),
+              SizedBox(height: 15),
+              Text(
                 'Purpose',
                 textAlign: TextAlign.justify,
                 style: TextStyle(color: Colors.black),
               ),
               TextField(
+                controller: _purpose,
                 style: TextStyle(color: Colors.black),
                 decoration: InputDecoration(
                   isDense: true,
@@ -242,7 +354,6 @@ class LiscenseInformation extends StatelessWidget {
                   labelStyle: TextStyle(
                     color: Colors.black,
                     fontFamily: 'Poppins',
-                    // fontWeight: FontWeight.w400,
                     letterSpacing: 0.20,
                   ),
                   enabledBorder: OutlineInputBorder(

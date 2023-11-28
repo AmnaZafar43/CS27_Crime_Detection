@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crime_detection/utils/toast.dart';
 import 'package:crime_detection/windows/crime_type.dart';
@@ -135,8 +137,8 @@ class _UpdateCriminalState extends State<UpdateCriminal> {
                   fillColor: Color(0x66F1F5F9),
                 ),
               ),
-              SizedBox(height: 15),
-              Text(
+              const SizedBox(height: 15),
+              const Text(
                 'Last Name',
                 textAlign: TextAlign.justify,
                 style: TextStyle(color: Colors.black),
@@ -262,25 +264,6 @@ class _UpdateCriminalState extends State<UpdateCriminal> {
               ),
               SizedBox(height: 15),
               Text(
-                'Date of Imprison',
-                textAlign: TextAlign.justify,
-                style: TextStyle(color: Colors.black),
-              ),
-              ElevatedButton(
-                onPressed: _datePicker,
-                child: Text(
-                  'Pick Date',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 17,
-                    fontFamily: 'Poppins',
-                    fontWeight: FontWeight.w600,
-                    height: 1.5,
-                  ),
-                ),
-              ),
-              SizedBox(height: 15),
-              Text(
                 'Most Wanted',
                 textAlign: TextAlign.justify,
                 style: TextStyle(color: Colors.black),
@@ -308,7 +291,6 @@ class _UpdateCriminalState extends State<UpdateCriminal> {
               ElevatedButton(
                 onPressed: () async {
                   try {
-                    print(widget.id);
                     await fireStore.doc(widget.id).update({
                       'First Name': _firstName.text.toString(),
                       'Last Name': _lastName.text.toString(),
@@ -316,22 +298,23 @@ class _UpdateCriminalState extends State<UpdateCriminal> {
                       'Gender': _gender.text.toString(),
                       'Address': _address.text.toString(),
                       'Charge': _charge.text.toString(),
-                      'Date of Imprison': dateTime.toString(),
                       'Most Wanted': _wanted.text.toString(),
                       'id': widget.id,
                       'active': true,
-                      '': DateTime.now(),
+                      'updateAt': DateTime.now(),
                     });
-                    print("this");
+                    Utils().showToast(
+                      context,
+                      'Updated Successfully!!!',
+                    );
                   } catch (e) {
-                    print(e);
                     Utils().showToast(
                       context,
                       e.toString(),
                     );
                   }
                 },
-                child: Text(
+                child: const Text(
                   'Update',
                   style: TextStyle(
                     color: Colors.white,
@@ -357,7 +340,7 @@ class _UpdateCriminalState extends State<UpdateCriminal> {
         children: [
           Text(
             label,
-            style: TextStyle(
+            style: const TextStyle(
               color: Color(0xFF737373),
               fontSize: 15,
               fontFamily: 'Gilroy-Medium',
@@ -365,8 +348,7 @@ class _UpdateCriminalState extends State<UpdateCriminal> {
               height: 1.5,
             ),
           ),
-          TextField(
-              ),
+          const TextField(),
         ],
       ),
     );
