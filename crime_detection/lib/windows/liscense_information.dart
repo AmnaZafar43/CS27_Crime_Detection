@@ -3,6 +3,8 @@ import 'package:crime_detection/windows/crime_type.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/material/dropdown.dart';
 
+import '../utils/toast.dart';
+
 class LiscenseInformation extends StatefulWidget {
   const LiscenseInformation({super.key});
 
@@ -274,7 +276,8 @@ class _LiscenseInformationState extends State<LiscenseInformation> {
                 hint: _dropDownValue == null
                     ? Text(
                         'Select type of liscense',
-                        style: TextStyle(color: Colors.black),
+                        style: TextStyle(
+                            color: const Color.fromARGB(255, 52, 34, 34)),
                       )
                     : Text(
                         _dropDownValue,
@@ -367,9 +370,44 @@ class _LiscenseInformationState extends State<LiscenseInformation> {
               SizedBox(height: 75),
               ElevatedButton(
                 onPressed: () {
-                  // Add functionality for the button
+                  try {
+                    // generate unique id
+                    String id =
+                        DateTime.now().millisecondsSinceEpoch.toString();
+                    // adds the data to firebase with collection name criminals as above written
+                    fireStore.doc(id).set({
+                      // _firstName controller stores the name that is added in the text field
+                      'First Name': _firstName.text.toString(),
+                      'Last Name': _lastName.text.toString(),
+                      'Age': _age.text.toString(),
+                      'CNIC': _cnic.text.toString(),
+                      'Phone Number': _phone.text.toString(),
+                      'District': _district.text.toString(),
+                      'Address': _address.text.toString(),
+                      'Type of Liscense': _dropDownValue.toString(),
+                      'Type of Weapon': _dropDownValue2.toString(),
+                      'Purpose': _purpose.text.toString(),
+                      'id': id,
+                      // createAt,updateAt,active shows the date and time when table is created and
+                      // active shows the table is active or in use or not.
+                      'createAt': DateTime.now(),
+                      'updateAt': DateTime.now(),
+                      'active': true,
+                    }).then((value) {
+                      Utils().showToast(context, 'Added Successfully');
+                    }).onError((error, stackTrace) {
+                      // show toast shows the mssg on bottom of screen
+                      Utils().showToast(context, error.toString());
+                    });
+                  } catch (e) {
+                    // throws exception if data not added successfully
+                    Utils().showToast(
+                      context,
+                      e.toString(),
+                    );
+                  }
                 },
-                child: Text(
+                child: const Text(
                   'Add',
                   style: TextStyle(
                     color: Colors.white,

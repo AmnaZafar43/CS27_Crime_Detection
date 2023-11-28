@@ -10,7 +10,6 @@ class ViewCriminal extends StatefulWidget {
 }
 
 class _ViewCriminalState extends State<ViewCriminal> {
-  // bool _isLoading = false;
   final fireStore =
       FirebaseFirestore.instance.collection('criminals').snapshots();
   @override
