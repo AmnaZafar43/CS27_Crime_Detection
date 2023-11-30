@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crime_detection/utils/toast.dart';
 import 'package:crime_detection/windows/update_criminal.dart';
+import 'package:crime_detection/windows/update_station.dart';
 import 'package:crime_detection/windows/view_criminal.dart';
 import 'package:crime_detection/windows/view_station.dart';
 import 'package:flutter/material.dart';
@@ -10,17 +11,17 @@ class StationDetails extends StatefulWidget {
       {super.key,
       required this.branchNumber,
       required this.district,
-      required this.name,
-      required this.noOfBranches,
-      required this.noOfPoliceOfficer,
+      required this.numberOfBranches,
+      required this.numberOfPoliceOfficers,
+      required this.policeStationName,
       required this.province,
       required this.id});
-  final String name;
   final String branchNumber;
   final String district;
-  final String noOfBranches;
-  final String noOfPoliceOfficer;
-  final String  province;
+  final String numberOfBranches;
+  final String numberOfPoliceOfficers;
+  final String policeStationName;
+  final String province;
   final String id;
 
   @override
@@ -71,7 +72,7 @@ class _StationDetailsState extends State<StationDetails> {
                           color: Colors.black, fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      widget.name.toString(),
+                      widget.policeStationName.toString(),
                       style: TextStyle(color: Colors.black),
                     ),
                     const Text(
@@ -98,7 +99,7 @@ class _StationDetailsState extends State<StationDetails> {
                           color: Colors.black, fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      widget.noOfBranches.toString(),
+                      widget.numberOfBranches.toString(),
                       style: TextStyle(color: Colors.black),
                     ),
                     const Text(
@@ -107,7 +108,7 @@ class _StationDetailsState extends State<StationDetails> {
                           color: Colors.black, fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      widget.noOfPoliceOfficer.toString(),
+                      widget.numberOfPoliceOfficers.toString(),
                       style: TextStyle(color: Colors.black),
                     ),
                     const Text(
@@ -145,24 +146,22 @@ class _StationDetailsState extends State<StationDetails> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) => UpdateCriminal(
-                    //       firstName: widget.firstName,
-                    //       lastName: widget.lastName,
-                    //       age: widget.age,
-                    //       address: widget.address,
-                    //       charge: widget.charge,
-                    //       date: widget.date,
-                    //       gender: widget.gender,
-                    //       id: widget.id,
-                    //       wanted: widget.wanted,
-                    //     ),
-                    //   ),
-                    // );
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => UpdateStation(
+                          policeStationName: widget.policeStationName,
+                          branchNumber: widget.branchNumber,
+                          district: widget.district,
+                          numberOfBranches: widget.numberOfBranches,
+                          numberOfPoliceOfficers: widget.numberOfPoliceOfficers,
+                          province: widget.province,
+                          id: widget.id,
+                        ),
+                      ),
+                    );
                   },
-                  child: const Text(
+                  child: const Text(   
                     'Update',
                     style: TextStyle(
                       color: Colors.white,

@@ -74,7 +74,7 @@ class _ViewStationState extends State<ViewStation> {
                               context,
                               MaterialPageRoute(
                                   builder: (context) => StationDetails(
-                                        name: snapshot
+                                        policeStationName: snapshot
                                             .data!
                                             .docs[position]
                                                 ['Police Station Name']
@@ -82,12 +82,12 @@ class _ViewStationState extends State<ViewStation> {
                                         branchNumber: snapshot.data!
                                             .docs[position]['Branch Number']
                                             .toString(),
-                                        noOfBranches: snapshot
+                                        numberOfBranches: snapshot
                                             .data!
                                             .docs[position]
                                                 ['Number of Branches']
                                             .toString(),
-                                        noOfPoliceOfficer: snapshot
+                                        numberOfPoliceOfficers: snapshot
                                             .data!
                                             .docs[position]
                                                 ['Number of Police Officers']
