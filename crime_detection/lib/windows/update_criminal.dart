@@ -2,7 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crime_detection/utils/toast.dart';
-import 'package:crime_detection/windows/crime_type.dart';
+import 'package:crime_detection/windows/fir_details.dart';
 import 'package:flutter/material.dart';
 
 class UpdateCriminal extends StatefulWidget {

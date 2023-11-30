@@ -1,4 +1,4 @@
-import 'package:crime_detection/windows/crime_type.dart';
+import 'package:crime_detection/windows/fir_details.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';

@@ -3,9 +3,11 @@ import 'package:crime_detection/windows/add_officer.dart';
 import 'package:crime_detection/windows/add_police_station.dart';
 import 'package:crime_detection/windows/civilian_dashboard.dart';
 import 'package:crime_detection/windows/cover_page.dart';
+import 'package:crime_detection/windows/fir_details.dart';
 import 'package:crime_detection/windows/liscense_applied.dart';
 import 'package:crime_detection/windows/liscense_information.dart';
 import 'package:crime_detection/windows/officer_details.dart';
+import 'package:crime_detection/windows/report_crime.dart';
 import 'package:crime_detection/windows/view_criminal.dart';
 import 'package:crime_detection/windows/view_officer.dart';
 import 'package:crime_detection/windows/view_station.dart';
@@ -38,7 +40,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: const Color.fromARGB(255, 255, 255, 255),
       ),
       // call the screen here which you want to run first
-      home: const LiscenseInformation(),
+      home: const ReportCrime(),
     );
   }
 }
