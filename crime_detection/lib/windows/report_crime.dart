@@ -1,3 +1,4 @@
+import 'package:crime_detection/windows/civilian_dashboard.dart';
 import 'package:crime_detection/windows/fir_details.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +19,7 @@ class ReportCrime extends StatelessWidget {
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const CoverScreen()));
+                MaterialPageRoute(builder: (context) => const CivilianDashboard()));
           },
         ),
       ),
@@ -98,11 +99,11 @@ class ReportCrime extends StatelessWidget {
                 SizedBox(height: 70),
                 ElevatedButton(
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const SelectCrime()),
-                    );
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //       builder: (context) => const SelectCrime()),
+                    // );
                   },
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(

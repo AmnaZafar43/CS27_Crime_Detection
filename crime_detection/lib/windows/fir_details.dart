@@ -6,14 +6,14 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/material/dropdown.dart';
 
-class SelectCrime extends StatefulWidget {
-  const SelectCrime({super.key});
+class FIRDetails extends StatefulWidget {
+  const FIRDetails({super.key});
 
   @override
-  State<SelectCrime> createState() => _SelectCrimeState();
+  State<FIRDetails> createState() => _FIRDetailsState();
 }
 
-class _SelectCrimeState extends State<SelectCrime> {
+class _FIRDetailsState extends State<FIRDetails> {
   final TextEditingController _reportDetails = TextEditingController();
 
   final TextEditingController _detailOfIncident = TextEditingController();

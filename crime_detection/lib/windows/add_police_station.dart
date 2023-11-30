@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crime_detection/windows/fir_details.dart';
+import 'package:crime_detection/windows/higher_authority_dashboard.dart';
 import 'package:flutter/material.dart';
 import '../utils/toast.dart';
 
@@ -38,7 +39,7 @@ class _AddPoliceStationState extends State<AddPoliceStation> {
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const SelectCrime()));
+                MaterialPageRoute(builder: (context) => const HigherAuthorityDashboard()));
           },
         ),
       ),

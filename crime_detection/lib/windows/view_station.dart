@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crime_detection/windows/criminal_details.dart';
+import 'package:crime_detection/windows/higher_authority_dashboard.dart';
 import 'package:crime_detection/windows/officer_added.dart';
 import 'package:crime_detection/windows/officer_details.dart';
 import 'package:crime_detection/windows/station_details.dart';
@@ -26,8 +27,8 @@ class _ViewStationState extends State<ViewStation> {
           color: Colors.white,
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            // Navigator.push(context,
-            //     MaterialPageRoute(builder: (context) => const SelectCrime()));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const HigherAuthorityDashboard()));
           },
         ),
       ),

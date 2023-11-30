@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crime_detection/utils/toast.dart';
 import 'package:crime_detection/windows/fir_details.dart';
+import 'package:crime_detection/windows/police_dashboard.dart';
 import 'package:flutter/material.dart';
 
 class AddCriminal extends StatefulWidget {
@@ -57,7 +58,7 @@ class _AddCriminalState extends State<AddCriminal> {
           onPressed: () {
             // the arrow icon will take you back to select crime screen
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const SelectCrime()));
+                MaterialPageRoute(builder: (context) => const PoliceOfficerDashboard()));
           },
         ),
       ),

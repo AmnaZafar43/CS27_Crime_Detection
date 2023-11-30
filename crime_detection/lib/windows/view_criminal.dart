@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crime_detection/windows/criminal_details.dart';
+import 'package:crime_detection/windows/police_dashboard.dart';
 import 'package:flutter/material.dart';
 
 class ViewCriminal extends StatefulWidget {
@@ -23,8 +24,8 @@ class _ViewCriminalState extends State<ViewCriminal> {
           color: Colors.white,
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            // Navigator.push(context,
-            //     MaterialPageRoute(builder: (context) => const SelectCrime()));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const PoliceOfficerDashboard()));
           },
         ),
       ),

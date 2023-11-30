@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crime_detection/windows/fir_details.dart';
+import 'package:crime_detection/windows/higher_authority_dashboard.dart';
 import 'package:flutter/material.dart';
 import '../utils/toast.dart';
 
@@ -45,7 +46,7 @@ class _AddOfficerState extends State<AddOfficer> {
             Navigator.push(
                 context,
                 // the arrow icon will take you back to select crime screen
-                MaterialPageRoute(builder: (context) => const SelectCrime()));
+                MaterialPageRoute(builder: (context) => const HigherAuthorityDashboard()));
           },
         ),
       ),

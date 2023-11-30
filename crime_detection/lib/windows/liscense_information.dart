@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:crime_detection/windows/civilian_dashboard.dart';
 import 'package:crime_detection/windows/fir_details.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/material/dropdown.dart';
@@ -48,8 +49,10 @@ class _LiscenseInformationState extends State<LiscenseInformation> {
           color: Colors.white,
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const SelectCrime()));
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const CivilianDashboard()));
           },
         ),
       ),

@@ -15,8 +15,8 @@ class CivilianInformation extends StatelessWidget {
           color: Colors.white,
           icon: Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const SelectCrime()));
+            // Navigator.push(context,
+            //     MaterialPageRoute(builder: (context) => const SelectCrime()));
           },
         ),
       ),
