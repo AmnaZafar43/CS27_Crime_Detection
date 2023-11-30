@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: const Color.fromARGB(255, 255, 255, 255),
       ),
       // call the screen here which you want to run first
-      home: const ReportCrime(),
+      home: const ViewOfficer(),
     );
   }
 }

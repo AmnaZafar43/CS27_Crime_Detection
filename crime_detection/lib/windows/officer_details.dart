@@ -1,10 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crime_detection/utils/toast.dart';
+import 'package:crime_detection/windows/update_officer.dart';
 import 'package:crime_detection/windows/view_officer.dart';
 import 'package:flutter/material.dart';
 
 class OfficerDetails extends StatefulWidget {
-  const OfficerDetails(
+  OfficerDetails(
       {super.key,
       required this.address,
       required this.firstName,
@@ -166,22 +167,22 @@ class _OfficerDetailsState extends State<OfficerDetails> {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) => UpdateCriminal(
-                    //       firstName: widget.firstName,
-                    //       lastName: widget.lastName,
-                    //       age: widget.age,
-                    //       address: widget.address,
-                    //       // charge: widget.charge,
-                    //       // date: widget.date,
-                    //       // gender: widget.gender,
-                    //       // id: widget.id,
-                    //       // wanted: widget.wanted,
-                    //     ),
-                    //   ),
-                    // );
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => UpdateOfficer(
+                          firstName: widget.firstName,
+                          lastName: widget.lastName,
+                          address: widget.address,
+                          age: widget.age,
+                          district: widget.district,
+                          gender: widget.gender,
+                          id: widget.id,
+                          post: widget.post,
+                          qualification: widget.qualification,
+                        ),
+                      ),
+                    );
                   },
                   child: const Text(
                     'Update',
