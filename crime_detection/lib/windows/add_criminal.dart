@@ -1,10 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:crime_detection/utils/toast.dart';
-import 'package:crime_detection/windows/fir_details.dart';
+import 'package:crime_detection/firebase/firebase_methods.dart';
 import 'package:crime_detection/windows/police_dashboard.dart';
 import 'package:flutter/material.dart';
 
 class AddCriminal extends StatefulWidget {
+  // This file adds functionality to add criminal by taking his name,age etc and store data in firebase.
   const AddCriminal({super.key});
 
   @override
@@ -12,9 +11,8 @@ class AddCriminal extends StatefulWidget {
 }
 
 class _AddCriminalState extends State<AddCriminal> {
-// this create a new collection name criminals to firebase
-  final fireStore = FirebaseFirestore.instance.collection('criminals');
-// initializing all controllers of text field
+  FirebaseMethods firebaseMethods = FirebaseMethods();
+// initializing all controllers of text field which 
   final TextEditingController _firstName = TextEditingController();
 
   final TextEditingController _lastName = TextEditingController();
@@ -57,8 +55,10 @@ class _AddCriminalState extends State<AddCriminal> {
           icon: Icon(Icons.arrow_back),
           onPressed: () {
             // the arrow icon will take you back to select crime screen
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const PoliceOfficerDashboard()));
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const PoliceOfficerDashboard()));
           },
         ),
       ),
@@ -153,7 +153,7 @@ class _AddCriminalState extends State<AddCriminal> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   filled: true,
-                  fillColor:const Color(0x66F1F5F9),
+                  fillColor: const Color(0x66F1F5F9),
                 ),
               ),
               SizedBox(height: 15),
@@ -181,7 +181,7 @@ class _AddCriminalState extends State<AddCriminal> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   filled: true,
-                  fillColor:const Color(0x66F1F5F9),
+                  fillColor: const Color(0x66F1F5F9),
                 ),
               ),
               SizedBox(height: 15),
@@ -210,7 +210,7 @@ class _AddCriminalState extends State<AddCriminal> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   filled: true,
-                  fillColor:const Color(0x66F1F5F9),
+                  fillColor: const Color(0x66F1F5F9),
                 ),
               ),
               SizedBox(height: 15),
@@ -226,7 +226,7 @@ class _AddCriminalState extends State<AddCriminal> {
                 controller: _address,
                 style: const TextStyle(color: Colors.black),
                 decoration: InputDecoration(
-                  // decorate the input 
+                  // decorate the input
                   isDense: true,
                   contentPadding: const EdgeInsets.all(12),
                   labelStyle: const TextStyle(
@@ -240,7 +240,7 @@ class _AddCriminalState extends State<AddCriminal> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   filled: true,
-                  fillColor:const Color(0x66F1F5F9),
+                  fillColor: const Color(0x66F1F5F9),
                 ),
               ),
               SizedBox(height: 15),
@@ -269,7 +269,7 @@ class _AddCriminalState extends State<AddCriminal> {
                     borderRadius: BorderRadius.circular(10),
                   ),
                   filled: true,
-                  fillColor:const Color(0x66F1F5F9),
+                  fillColor: const Color(0x66F1F5F9),
                 ),
               ),
               SizedBox(height: 15),
@@ -327,41 +327,7 @@ class _AddCriminalState extends State<AddCriminal> {
               ElevatedButton(
                 // this button perfoms main functionality
                 onPressed: () {
-                  try {
-                    // generate unique id
-                    String id =
-                        DateTime.now().millisecondsSinceEpoch.toString();
-                        // adds the data to firebase with collection name criminals as above written
-                    fireStore
-                        .doc(id)
-                        .set({
-                          // _firstName controller stores the name that is added in the text field
-                          'First Name': _firstName.text.toString(),
-                          'Last Name': _lastName.text.toString(),
-                          'Age': _age.text.toString(),
-                          'Gender': _gender.text.toString(),
-                          'Address': _address.text.toString(),
-                          'Charge': _charge.text.toString(),
-                          'Date of Imprison': dateTime.toString(),
-                          'Most Wanted': _wanted.text.toString(),
-                          'id': id,
-                          // createAt,updateAt,active shows the date and time when table is created and active shows the table is active or in use or not.
-                          'createAt': DateTime.now(),
-                          'updateAt': DateTime.now(),
-                          'active': true,
-                        })
-                        .then((value) {})
-                        .onError((error, stackTrace) {
-                          // show toast shows the mssg on bottom of screen 
-                          Utils().showToast(context, error.toString());
-                        });
-                  } catch (e) {
-                    // throws exception if data not added successfully
-                    Utils().showToast(
-                      context,
-                      e.toString(),
-                    );
-                  }
+                  onSave();
                 },
                 child: const Text(
                   // this is add button text
@@ -399,11 +365,22 @@ class _AddCriminalState extends State<AddCriminal> {
               height: 1.5,
             ),
           ),
-          const TextField(
-              
-              ),
+          const TextField(),
         ],
       ),
     );
+  }
+
+  void onSave() async {
+    await firebaseMethods.addCriminal(
+        context,
+        _firstName.text,
+        _lastName.text,
+        _age.text,
+        _gender.text,
+        _address.text,
+        _charge.text,
+        dateTime!,
+        _wanted.text);
   }
 }

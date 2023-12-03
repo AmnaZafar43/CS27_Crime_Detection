@@ -19,13 +19,12 @@ class _SignUpState extends State<SignUp> {
   final TextEditingController _username = TextEditingController();
   final TextEditingController _email = TextEditingController();
   final TextEditingController _password = TextEditingController();
+  String _dropDownValue = '';
   bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
-    // final screenWidth = MediaQuery.of(context).size.width;
-
     return Scaffold(
       body: SafeArea(
         child: SingleChildScrollView(
@@ -149,7 +148,45 @@ class _SignUpState extends State<SignUp> {
                     fillColor: Color(0x66F1F5F9),
                   ),
                 ),
-                // SizedBox(height: screenHeight * 0.03), // Vertical spacing
+                const Text(
+                  'Role',
+                  textAlign: TextAlign.justify,
+                  style: TextStyle(color: Colors.black),
+                ),
+                DropdownButton(
+                  // ignore: unnecessary_null_comparison
+                  hint: _dropDownValue == null
+                      ? const Text(
+                          'Select Role',
+                          style: TextStyle(color: Colors.black),
+                        )
+                      : Text(
+                          _dropDownValue,
+                          style: TextStyle(color: Colors.blue),
+                        ),
+                  isExpanded: true,
+                  iconSize: 30.0,
+                  style: TextStyle(color: Colors.blue),
+                  items: [
+                    'Civilian',
+                    'Police Officer',
+                    'Higher Authority',
+                  ].map(
+                    (val1) {
+                      return DropdownMenuItem<String>(
+                        value: val1,
+                        child: Text(val1),
+                      );
+                    },
+                  ).toList(),
+                  onChanged: (val1) {
+                    setState(
+                      () {
+                        _dropDownValue = val1.toString();
+                      },
+                    );
+                  },
+                ),
                 const SizedBox(height: 170),
                 // Sign Up Button
                 ElevatedButton(
@@ -178,9 +215,7 @@ class _SignUpState extends State<SignUp> {
                           ),
                         ),
                 ),
-
                 SizedBox(height: screenHeight * 0.03), // Vertical spacing
-
                 // Already have an account? Login
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -235,7 +270,7 @@ class _SignUpState extends State<SignUp> {
           _password.text,
           _name.text,
           _username.text,
-          'civilians',
+          _dropDownValue.toString(),
         );
       }
       Utils().showToast(

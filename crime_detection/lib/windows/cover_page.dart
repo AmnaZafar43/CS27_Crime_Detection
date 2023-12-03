@@ -1,8 +1,6 @@
+// ignore_for_file: prefer_const_constructors, use_build_context_synchronously
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-
-import '../windows/civilian_dashboard.dart';
-import '../windows/sign_in.dart';
+import '../firebase/firebase_methods.dart';
 
 class CoverScreen extends StatefulWidget {
   const CoverScreen({super.key});
@@ -12,7 +10,6 @@ class CoverScreen extends StatefulWidget {
 }
 
 class _CoverScreenState extends State<CoverScreen> {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
   bool _isLoading = false;
   @override
   Widget build(BuildContext context) {
@@ -131,21 +128,7 @@ class _CoverScreenState extends State<CoverScreen> {
     setState(() {
       _isLoading = true;
     });
-    if (_auth.currentUser == null) {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const SignIn(),
-        ),
-      );
-    } else {
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const CivilianDashboard(),
-        ),
-      );
-    }
+    await FirebaseMethods().loginBasedOnRole(context);
     setState(() {
       _isLoading = false;
     });
