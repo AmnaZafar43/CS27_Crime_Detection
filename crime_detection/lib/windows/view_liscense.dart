@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:crime_detection/windows/criminal_details.dart';
 import 'package:crime_detection/windows/liscense_details.dart';
 import 'package:crime_detection/windows/police_dashboard.dart';
 import 'package:flutter/material.dart';

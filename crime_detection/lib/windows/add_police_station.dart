@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:crime_detection/windows/fir_details.dart';
 import 'package:crime_detection/windows/higher_authority_dashboard.dart';
 import 'package:flutter/material.dart';
+import '../firebase/firebase_methods.dart';
 import '../utils/toast.dart';
 
 class AddPoliceStation extends StatefulWidget {
@@ -12,6 +12,7 @@ class AddPoliceStation extends StatefulWidget {
 }
 
 class _AddPoliceStationState extends State<AddPoliceStation> {
+  bool isLoading = false;
   final fireStore = FirebaseFirestore.instance.collection('PoliceStation');
 
   final TextEditingController _Name = TextEditingController();
@@ -26,20 +27,21 @@ class _AddPoliceStationState extends State<AddPoliceStation> {
 
   final TextEditingController _noOfPoliceOfficer = TextEditingController();
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor:const Color(0xFF52B6DF),
+        backgroundColor: const Color(0xFF52B6DF),
         title: const Text('Police Station'),
         centerTitle: true,
         leading: IconButton(
           color: Colors.white,
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const HigherAuthorityDashboard()));
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const HigherAuthorityDashboard()));
           },
         ),
       ),
@@ -235,31 +237,7 @@ class _AddPoliceStationState extends State<AddPoliceStation> {
               SizedBox(height: 110),
               ElevatedButton(
                 onPressed: () {
-                  try {
-                    String id =
-                        DateTime.now().millisecondsSinceEpoch.toString();
-                    fireStore.doc(id).set({
-                      'Police Station Name': _Name.text.toString(),
-                      'Number of Branches': _noOfBranches.text.toString(),
-                      'Branch Number': _branchNumber.text.toString(),
-                      'District': _district.text.toString(),
-                      'Province': _province.text.toString(),
-                      'Number of Police Officers': _noOfPoliceOfficer.text.toString(),
-                      'id': id,
-                      'createAt': DateTime.now(),
-                      'updateAt': DateTime.now(),
-                      'active': true,
-                    }).then((value) {
-                      Utils().showToast(context, 'Successfully Added!!');
-                    }).onError((error, stackTrace) {
-                      Utils().showToast(context, error.toString());
-                    });
-                  } catch (e) {
-                    Utils().showToast(
-                      context,
-                      e.toString(),
-                    );
-                  }
+                  addButtonPress();
                 },
                 child: const Text(
                   'Add',
@@ -301,5 +279,43 @@ class _AddPoliceStationState extends State<AddPoliceStation> {
         ],
       ),
     );
+  }
+
+  void addButtonPress() async {
+    try {
+      setState(() {
+        isLoading = true;
+      });
+      if (_Name.text.isEmpty ||
+          _branchNumber.text.isEmpty ||
+          _district.text.isEmpty ||
+          _noOfBranches.text.isEmpty ||
+          _noOfPoliceOfficer.text.isEmpty ||
+          _province.text.isEmpty) {
+        Utils().showToast(context, 'Text box should not be empty');
+      } else {
+        await FirebaseMethods().addPoliceStation(
+            context,
+            _Name.text,
+            _noOfBranches.text,
+            _branchNumber.text,
+            _district.text,
+            _province.text,
+            _noOfPoliceOfficer.text);
+      }
+      // ignore: use_build_context_synchronously
+      Utils().showToast(
+        context,
+        'Add successfully',
+      );
+    } catch (e) {
+      Utils().showToast(
+        context,
+        e.toString(),
+      );
+    }
+    setState(() {
+      isLoading = false;
+    });
   }
 }

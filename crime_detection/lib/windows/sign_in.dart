@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 
 import '../firebase/firebase_methods.dart';
 import '../utils/toast.dart';
-import 'civilian_dashboard.dart';
 
 class SignIn extends StatefulWidget {
   const SignIn({super.key});
@@ -198,20 +197,13 @@ class _SignInState extends State<SignIn> {
       if (_email.text.isEmpty || _password.text.isEmpty) {
         Utils().showToast(context, 'Text box should not be empty');
       } else {
-        await FirebaseMethods().login(
-          _email.text,
-          _password.text,
-        );
+        await FirebaseMethods().login(_email.text, _password.text);
+        await FirebaseMethods().loginBasedOnRole(context);
       }
+      // amad sign up ma koi issue nhi bss sign in krnay pr login successfully ka mssg ata but koi screen open nhi hoti
       Utils().showToast(
         context,
         'Login successfully',
-      );
-      Navigator.push(
-        context,
-        MaterialPageRoute(
-          builder: (context) => const CivilianDashboard(),
-        ),
       );
     } catch (e) {
       Utils().showToast(

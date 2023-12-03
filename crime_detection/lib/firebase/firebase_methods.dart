@@ -33,11 +33,6 @@ class FirebaseMethods {
     String role,
   ) async {
     try {
-      print("--> $email");
-      print("--> $password");
-      print("--> $username");
-      print("--> $role");
-      print("--> $name");
       UserCredential user = await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
       Users u = Users(
@@ -80,6 +75,224 @@ class FirebaseMethods {
       return 'Password should be 8 digit, uppercase letters';
     }
     return '';
+  }
+
+  Future<void> addPoliceStation(
+      BuildContext context,
+      String name,
+      String noOfBranches,
+      String branchNumber,
+      String district,
+      String province,
+      String noOfPoliceOfficer) async {
+    try {
+      String id = DateTime.now().millisecondsSinceEpoch.toString();
+      await _firebaseFirestore.collection('PoliceStation').doc(id).set({
+        'Police Station Name': name,
+        'Number of Branches': noOfBranches,
+        'Branch Number': branchNumber,
+        'District': district,
+        'Province': province,
+        'Number of Police Officers': noOfPoliceOfficer,
+        'id': id,
+        'createAt': DateTime.now(),
+        'updateAt': DateTime.now(),
+        'active': true,
+      }).then((value) {
+        Utils().showToast(context, 'Successfully Added!!');
+      }).onError((error, stackTrace) {
+        Utils().showToast(context, error.toString());
+      });
+    } catch (e) {
+      Utils().showToast(
+        context,
+        e.toString(),
+      );
+    }
+  }
+
+  Future<void> releaseOrder(
+      BuildContext context,
+      String giveOrder,
+      String branchNumberToOrder,
+      String district,
+      String province,
+      DateTime dateTime) async {
+    try {
+      // generate unique id
+      String id = DateTime.now().millisecondsSinceEpoch.toString();
+      // adds the data to firebase with collection name criminals as above written
+      await _firebaseFirestore.collection('Orders').doc(id).set({
+        // _firstName controller stores the name that is added in the text field
+        'Give Order': giveOrder,
+        'Police Station Branch Number to Order': branchNumberToOrder,
+        'District': district,
+        'Province': province,
+        'Order Release Date': dateTime,
+        'id': id,
+        // createAt,updateAt,active shows the date and time when table is created and active shows the table is active or in use or not.
+        'createAt': DateTime.now(),
+        'updateAt': DateTime.now(),
+        'active': true,
+      }).then((value) {
+        Utils().showToast(context, 'Successfully Added!!');
+      }).onError((error, stackTrace) {
+        // show toast shows the mssg on bottom of screen
+        Utils().showToast(context, error.toString());
+      });
+    } catch (e) {
+      // throws exception if data not added successfully
+      Utils().showToast(
+        context,
+        e.toString(),
+      );
+    }
+  }
+
+  Future<void> liscenseInformation(
+      BuildContext context,
+      String firstName,
+      String lastName,
+      String age,
+      String cnic,
+      String phone,
+      String district,
+      String address,
+      String typeLiscense,
+      String typeWeapon,
+      String purpose) async {
+    try {
+      // generate unique id
+      String id = DateTime.now().millisecondsSinceEpoch.toString();
+      // adds the data to firebase with collection name criminals as above written
+      await _firebaseFirestore.collection('LiscenseInformation').doc(id).set({
+        // _firstName controller stores the name that is added in the text field
+        'First Name': firstName,
+        'Last Name': lastName,
+        'Age': age,
+        'CNIC': cnic,
+        'Phone Number': phone,
+        'District': district,
+        'Address': address,
+        'Type of Liscense': typeLiscense,
+        'Type of Weapon': typeWeapon,
+        'Purpose': purpose,
+        'id': id,
+        // createAt,updateAt,active shows the date and time when table is created and
+        // active shows the table is active or in use or not.
+        'createAt': DateTime.now(),
+        'updateAt': DateTime.now(),
+        'active': true,
+      }).then((value) {
+        Utils().showToast(context, 'Added Successfully');
+      }).onError((error, stackTrace) {
+        // show toast shows the mssg on bottom of screen
+        Utils().showToast(context, error.toString());
+      });
+    } catch (e) {
+      // throws exception if data not added successfully
+      Utils().showToast(
+        context,
+        e.toString(),
+      );
+    }
+  }
+
+  Future<void> addFir(
+      BuildContext context,
+      String reportCrime,
+      String detailOfIncident,
+      DateTime dateOfIncident,
+      String addressOfIncident,
+      String districtOfIncident,
+      String suspectName,
+      String suspectAddress,
+      String firstName,
+      String lastName,
+      String cnic,
+      String phoneNumber,
+      String gender,
+      String age) async {
+    try {
+      // generate unique id
+      String id = DateTime.now().millisecondsSinceEpoch.toString();
+      // adds the data to firebase with collection name criminals as above written
+      await _firebaseFirestore.collection('FirDetails').doc(id).set({
+        'Crime Information': reportCrime,
+        'Detail of Incident': detailOfIncident,
+        'Date of Incident': dateOfIncident,
+        'Address of Incident': addressOfIncident,
+        'District of Incident': districtOfIncident,
+        'Suspect Name': suspectName,
+        'Suspect Address': suspectAddress,
+        'First Name': firstName,
+        'Last Name': lastName,
+        'CNIC': cnic,
+        'Phone Number': phoneNumber,
+        'Gender': gender,
+        'Age': age,
+        'id': id,
+        // createAt,updateAt,active shows the date and time when table is created and active shows the table is active or in use or not.
+        'createAt': DateTime.now(),
+        'updateAt': DateTime.now(),
+        'active': true,
+      }).then((value) {
+        Utils().showToast(context, 'Successfully Added');
+      }).onError((error, stackTrace) {
+        // show toast shows the mssg on bottom of screen
+        Utils().showToast(context, error.toString());
+      });
+    } catch (e) {
+      // throws exception if data not added successfully
+      Utils().showToast(
+        context,
+        e.toString(),
+      );
+    }
+  }
+
+  Future<void> addOfficer(
+      BuildContext context,
+      String firstName,
+      String lastName,
+      String age,
+      String gender,
+      String address,
+      String qualification,
+      String post,
+      String district) async {
+    try {
+      // generate unique id
+      String id = DateTime.now().millisecondsSinceEpoch.toString();
+      // adds the data to firebase with collection name police officer as above written
+      await _firebaseFirestore.collection('PoliceOfficer').doc(id).set({
+        // _firstName controller stores the name that is added in the text field
+        'First Name': firstName,
+        'Last Name': lastName,
+        'Age': age,
+        'Gender': gender,
+        'Address': address,
+        'Qualification': qualification,
+        'Post': post,
+        'District': district,
+        'id': id,
+        // createAt,updateAt,active shows the date and time when table is created and active shows the table is active or in use or not.
+        'createAt': DateTime.now(),
+        'updateAt': DateTime.now(),
+        'active': true,
+      }).then((value) {
+        // show toast shows the mssg on bottom of screen
+        Utils().showToast(context, 'Successfully Added!!');
+      }).onError((error, stackTrace) {
+        Utils().showToast(context, error.toString());
+      });
+    } catch (e) {
+      // catch exception if data not added successfully
+      Utils().showToast(
+        context,
+        e.toString(),
+      );
+    }
   }
 
   Future<void> addCriminal(

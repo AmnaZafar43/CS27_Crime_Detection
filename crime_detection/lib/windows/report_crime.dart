@@ -1,25 +1,24 @@
 import 'package:crime_detection/windows/civilian_dashboard.dart';
 import 'package:crime_detection/windows/fir_details.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'cover_page.dart';
 
 class ReportCrime extends StatelessWidget {
   const ReportCrime({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final double screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
-        title: Text('Report Crime'),
+        title: const Text('Report FIR'),
         leading: IconButton(
           color: Colors.white,
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const CivilianDashboard()));
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const CivilianDashboard()));
           },
         ),
       ),
@@ -99,11 +98,11 @@ class ReportCrime extends StatelessWidget {
                 SizedBox(height: 70),
                 ElevatedButton(
                   onPressed: () {
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //       builder: (context) => const SelectCrime()),
-                    // );
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const FIRDetails()),
+                    );
                   },
                   style: ButtonStyle(
                     backgroundColor: MaterialStateProperty.all(

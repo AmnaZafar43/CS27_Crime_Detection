@@ -1,10 +1,6 @@
-import 'package:crime_detection/windows/cover_page.dart';
 import 'package:crime_detection/windows/give_information.dart';
 import 'package:crime_detection/windows/report_crime.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/material/dropdown.dart';
 
 class FIRDetails extends StatefulWidget {
   const FIRDetails({super.key});
@@ -206,7 +202,6 @@ class _FIRDetailsState extends State<FIRDetails> {
                   labelStyle: TextStyle(
                     color: Colors.black,
                     fontFamily: 'Poppins',
-                    // fontWeight: FontWeight.w400,
                     letterSpacing: 0.20,
                   ),
                   enabledBorder: OutlineInputBorder(
@@ -258,13 +253,13 @@ class _FIRDetailsState extends State<FIRDetails> {
                         context,
                         MaterialPageRoute(
                             builder: (context) => GiveInformation(
-                              reportCrime: _districtOfIncident.text.toString(),
                               addressOfIncident: _addressOfIncident.text.toString(),
-                              dateOfIncident: dateTime.toString(),
-                              detailOfIncident: _detailOfIncident.text.toString(),
+                              dateOfIncident: dateTime!,
                               districtOfIncident: _districtOfIncident.text.toString(),
                               suspectAddress: _suspectAddress.text.toString(),
                               suspectName: _suspectName.text.toString(),
+                              detailOfIncident: _detailOfIncident.text.toString(),
+                              reportCrime: _districtOfIncident.text.toString(),
                             )  
                             ),
                       );

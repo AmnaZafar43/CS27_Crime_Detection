@@ -67,7 +67,7 @@ class _CoverScreenState extends State<CoverScreen> {
                     Opacity(
                       opacity: 0.60,
                       child: Text(
-                        'Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed.',
+                        'Crime Detection System helps you in case of any problem.',
                         textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Colors.white,

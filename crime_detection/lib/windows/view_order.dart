@@ -1,8 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:crime_detection/windows/criminal_details.dart';
-import 'package:crime_detection/windows/higher_authority_dashboard.dart';
-import 'package:crime_detection/windows/officer_added.dart';
-import 'package:crime_detection/windows/officer_details.dart';
 import 'package:crime_detection/windows/order_details.dart';
 import 'package:crime_detection/windows/police_dashboard.dart';
 import 'package:flutter/material.dart';

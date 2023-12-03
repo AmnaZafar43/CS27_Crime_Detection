@@ -1,8 +1,5 @@
 import 'package:crime_detection/windows/add_criminal.dart';
 import 'package:crime_detection/windows/cover_page.dart';
-import 'package:crime_detection/windows/liscense_information.dart';
-import 'package:crime_detection/windows/release_order.dart';
-import 'package:crime_detection/windows/report_crime.dart';
 import 'package:crime_detection/windows/view_criminal.dart';
 import 'package:crime_detection/windows/view_fir.dart';
 import 'package:crime_detection/windows/view_liscense.dart';

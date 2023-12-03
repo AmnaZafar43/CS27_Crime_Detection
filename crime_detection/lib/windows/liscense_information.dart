@@ -1,9 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crime_detection/windows/civilian_dashboard.dart';
-import 'package:crime_detection/windows/fir_details.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/material/dropdown.dart';
-
+import '../firebase/firebase_methods.dart';
 import '../utils/toast.dart';
 
 class LiscenseInformation extends StatefulWidget {
@@ -14,8 +11,7 @@ class LiscenseInformation extends StatefulWidget {
 }
 
 class _LiscenseInformationState extends State<LiscenseInformation> {
-  final fireStore =
-      FirebaseFirestore.instance.collection('LiscenseInformation');
+  bool isLoading = false;
 
   final TextEditingController _firstName = TextEditingController();
 
@@ -30,10 +26,6 @@ class _LiscenseInformationState extends State<LiscenseInformation> {
   final TextEditingController _address = TextEditingController();
 
   final TextEditingController _district = TextEditingController();
-
-  final TextEditingController _typeLiscense = TextEditingController();
-
-  final TextEditingController _typeWeapon = TextEditingController();
 
   final TextEditingController _purpose = TextEditingController();
   String _dropDownValue = '';
@@ -271,24 +263,25 @@ class _LiscenseInformationState extends State<LiscenseInformation> {
                 ),
               ),
               SizedBox(height: 15),
-              Text(
+              const Text(
                 'Select Type of Liscense',
                 style: TextStyle(color: Colors.black),
               ),
               DropdownButton(
+                // ignore: unnecessary_null_comparison
                 hint: _dropDownValue == null
-                    ? Text(
+                    ? const Text(
                         'Select type of liscense',
                         style: TextStyle(
-                            color: const Color.fromARGB(255, 52, 34, 34)),
+                            color:  Color.fromARGB(255, 52, 34, 34)),
                       )
                     : Text(
                         _dropDownValue,
-                        style: TextStyle(color: Colors.blue),
+                        style: const TextStyle(color: Colors.blue),
                       ),
                 isExpanded: true,
                 iconSize: 30.0,
-                style: TextStyle(color: Colors.blue),
+                style: const TextStyle(color: Colors.blue),
                 items: ['Prohibited Liscense', 'Non-Prohibited Liscense'].map(
                   (val) {
                     return DropdownMenuItem<String>(
@@ -306,13 +299,14 @@ class _LiscenseInformationState extends State<LiscenseInformation> {
                 },
               ),
               SizedBox(height: 15),
-              Text(
+              const Text(
                 'Select Type of Weapon',
                 style: TextStyle(color: Colors.black),
               ),
               DropdownButton(
+                // ignore: unnecessary_null_comparison
                 hint: _dropDownValue2 == null
-                    ? Text(
+                    ? const Text(
                         'Select type of liscense',
                         style: TextStyle(color: Colors.black),
                       )
@@ -346,24 +340,24 @@ class _LiscenseInformationState extends State<LiscenseInformation> {
                 },
               ),
               SizedBox(height: 15),
-              Text(
+              const Text(
                 'Purpose',
                 textAlign: TextAlign.justify,
                 style: TextStyle(color: Colors.black),
               ),
               TextField(
                 controller: _purpose,
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
                 decoration: InputDecoration(
                   isDense: true,
-                  contentPadding: EdgeInsets.all(12),
-                  labelStyle: TextStyle(
+                  contentPadding: const EdgeInsets.all(12),
+                  labelStyle: const TextStyle(
                     color: Colors.black,
                     fontFamily: 'Poppins',
                     letterSpacing: 0.20,
                   ),
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xFFCBD5E1)),
+                    borderSide: const BorderSide(color: Color(0xFFCBD5E1)),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   filled: true,
@@ -373,42 +367,7 @@ class _LiscenseInformationState extends State<LiscenseInformation> {
               SizedBox(height: 75),
               ElevatedButton(
                 onPressed: () {
-                  try {
-                    // generate unique id
-                    String id =
-                        DateTime.now().millisecondsSinceEpoch.toString();
-                    // adds the data to firebase with collection name criminals as above written
-                    fireStore.doc(id).set({
-                      // _firstName controller stores the name that is added in the text field
-                      'First Name': _firstName.text.toString(),
-                      'Last Name': _lastName.text.toString(),
-                      'Age': _age.text.toString(),
-                      'CNIC': _cnic.text.toString(),
-                      'Phone Number': _phone.text.toString(),
-                      'District': _district.text.toString(),
-                      'Address': _address.text.toString(),
-                      'Type of Liscense': _dropDownValue.toString(),
-                      'Type of Weapon': _dropDownValue2.toString(),
-                      'Purpose': _purpose.text.toString(),
-                      'id': id,
-                      // createAt,updateAt,active shows the date and time when table is created and
-                      // active shows the table is active or in use or not.
-                      'createAt': DateTime.now(),
-                      'updateAt': DateTime.now(),
-                      'active': true,
-                    }).then((value) {
-                      Utils().showToast(context, 'Added Successfully');
-                    }).onError((error, stackTrace) {
-                      // show toast shows the mssg on bottom of screen
-                      Utils().showToast(context, error.toString());
-                    });
-                  } catch (e) {
-                    // throws exception if data not added successfully
-                    Utils().showToast(
-                      context,
-                      e.toString(),
-                    );
-                  }
+                  addButtonPress();
                 },
                 child: const Text(
                   'Add',
@@ -436,7 +395,7 @@ class _LiscenseInformationState extends State<LiscenseInformation> {
         children: [
           Text(
             label,
-            style: TextStyle(
+            style: const TextStyle(
               color: Color(0xFF737373),
               fontSize: 15,
               fontFamily: 'Gilroy-Medium',
@@ -444,11 +403,57 @@ class _LiscenseInformationState extends State<LiscenseInformation> {
               height: 1.5,
             ),
           ),
-          TextField(
+          const TextField(
               // Add text field properties
               ),
         ],
       ),
     );
+  }
+
+  void addButtonPress() async {
+    try {
+      setState(() {
+        isLoading = true;
+      });
+      if (_address.text.isEmpty ||
+          _age.text.isEmpty ||
+          _cnic.text.isEmpty ||
+          _district.text.isEmpty ||
+          _dropDownValue.isEmpty ||
+          _dropDownValue2.isEmpty ||
+          _firstName.text.isEmpty ||
+          _lastName.text.isEmpty ||
+          _phone.text.isEmpty ||
+          _purpose.text.isEmpty) {
+        Utils().showToast(context, 'Text box should not be empty');
+      } else {
+        await FirebaseMethods().liscenseInformation(
+            context,
+            _firstName.text,
+            _lastName.text,
+            _age.text,
+            _cnic.text,
+            _phone.text,
+            _district.text,
+            _address.text,
+            _dropDownValue,
+            _dropDownValue2,
+            _purpose.text);
+      }
+      // ignore: use_build_context_synchronously
+      Utils().showToast(
+        context,
+        'Add successfully',
+      );
+    } catch (e) {
+      Utils().showToast(
+        context,
+        e.toString(),
+      );
+    }
+    setState(() {
+      isLoading = false;
+    });
   }
 }

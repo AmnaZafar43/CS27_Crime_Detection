@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:crime_detection/windows/fir_details.dart';
 import 'package:crime_detection/windows/higher_authority_dashboard.dart';
 import 'package:flutter/material.dart';
+import '../firebase/firebase_methods.dart';
 import '../utils/toast.dart';
 
 class AddOfficer extends StatefulWidget {
@@ -12,6 +12,7 @@ class AddOfficer extends StatefulWidget {
 }
 
 class _AddOfficerState extends State<AddOfficer> {
+  bool isLoading = false;
   // this create a new collection name police officer to firebase
   final fireStore = FirebaseFirestore.instance.collection('PoliceOfficer');
   // initializing all controllers of text field
@@ -46,7 +47,8 @@ class _AddOfficerState extends State<AddOfficer> {
             Navigator.push(
                 context,
                 // the arrow icon will take you back to select crime screen
-                MaterialPageRoute(builder: (context) => const HigherAuthorityDashboard()));
+                MaterialPageRoute(
+                    builder: (context) => const HigherAuthorityDashboard()));
           },
         ),
       ),
@@ -321,39 +323,7 @@ class _AddOfficerState extends State<AddOfficer> {
               ElevatedButton(
                 // this button perfoms main functionality
                 onPressed: () {
-                  try {
-                    // generate unique id
-                    String id =
-                        DateTime.now().millisecondsSinceEpoch.toString();
-                    // adds the data to firebase with collection name police officer as above written
-                    fireStore.doc(id).set({
-                      // _firstName controller stores the name that is added in the text field
-                      'First Name': _firstName.text.toString(),
-                      'Last Name': _lastName.text.toString(),
-                      'Age': _age.text.toString(),
-                      'Gender': _gender.text.toString(),
-                      'Address': _address.text.toString(),
-                      'Qualification': _qualification.text.toString(),
-                      'Post': _post.text.toString(),
-                      'District': _district.text.toString(),
-                      'id': id,
-                      // createAt,updateAt,active shows the date and time when table is created and active shows the table is active or in use or not.
-                      'createAt': DateTime.now(),
-                      'updateAt': DateTime.now(),
-                      'active': true,
-                    }).then((value) {
-                      // show toast shows the mssg on bottom of screen
-                      Utils().showToast(context, 'Successfully Added!!');
-                    }).onError((error, stackTrace) {
-                      Utils().showToast(context, error.toString());
-                    });
-                  } catch (e) {
-                    // catch exception if data not added successfully
-                    Utils().showToast(
-                      context,
-                      e.toString(),
-                    );
-                  }
+                  addButtonPress();
                 },
                 child: const Text(
                   // this is add button text
@@ -391,10 +361,51 @@ class _AddOfficerState extends State<AddOfficer> {
               height: 1.5,
             ),
           ),
-          const TextField(
-              ),
+          const TextField(),
         ],
       ),
     );
+  }
+
+  void addButtonPress() async {
+    try {
+      setState(() {
+        isLoading = true;
+      });
+      if (_firstName.text.isEmpty ||
+          _lastName.text.isEmpty ||
+          _age.text.isEmpty ||
+          _gender.text.isEmpty ||
+          _address.text.isEmpty ||
+          _post.text.isEmpty ||
+          _qualification.text.isEmpty ||
+          _district.text.isEmpty) {
+        Utils().showToast(context, 'Text box should not be empty');
+      } else {
+        await FirebaseMethods().addOfficer(
+            context,
+            _firstName.text,
+            _lastName.text,
+            _age.text,
+            _gender.text,
+            _address.text,
+            _qualification.text,
+            _post.text,
+            _district.text);
+      }
+      // ignore: use_build_context_synchronously
+      Utils().showToast(
+        context,
+        'Add successfully',
+      );
+    } catch (e) {
+      Utils().showToast(
+        context,
+        e.toString(),
+      );
+    }
+    setState(() {
+      isLoading = false;
+    });
   }
 }

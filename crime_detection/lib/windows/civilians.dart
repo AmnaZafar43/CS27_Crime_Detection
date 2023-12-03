@@ -1,4 +1,3 @@
-import 'package:crime_detection/windows/fir_details.dart';
 import 'package:flutter/material.dart';
 
 class CivilianInformation extends StatelessWidget {

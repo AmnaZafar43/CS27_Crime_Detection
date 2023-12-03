@@ -5,7 +5,6 @@ import 'package:crime_detection/windows/civilian_dashboard.dart';
 import 'package:crime_detection/windows/cover_page.dart';
 import 'package:crime_detection/windows/fir_details.dart';
 import 'package:crime_detection/windows/higher_authority_dashboard.dart';
-import 'package:crime_detection/windows/liscense_applied.dart';
 import 'package:crime_detection/windows/liscense_information.dart';
 import 'package:crime_detection/windows/officer_details.dart';
 import 'package:crime_detection/windows/police_dashboard.dart';
@@ -48,7 +47,7 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: const Color.fromARGB(255, 255, 255, 255),
       ),
       // call the screen here which you want to run first
-      home:  const SignUp(),
+      home: const CoverScreen(),
     );
   }
 }

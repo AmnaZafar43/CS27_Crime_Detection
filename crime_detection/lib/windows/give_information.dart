@@ -1,13 +1,30 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:crime_detection/windows/fir_details.dart';
 import 'package:flutter/material.dart';
-
+import '../firebase/firebase_methods.dart';
 import '../utils/toast.dart';
 
-class GiveInformation extends StatelessWidget {
-  // this create a new collection name criminals to firebase
-  final fireStore = FirebaseFirestore.instance.collection('FirDetails');
+class GiveInformation extends StatefulWidget {
+  GiveInformation(
+      {super.key,
+      required this.addressOfIncident,
+      required this.dateOfIncident,
+      required this.districtOfIncident,
+      required this.suspectAddress,
+      required this.suspectName,
+      required this.detailOfIncident,
+      required this.reportCrime});
+  final String reportCrime;
+  final String detailOfIncident;
+  final DateTime dateOfIncident;
+  final String addressOfIncident;
+  final String districtOfIncident;
+  final String suspectName;
+  final String suspectAddress;
 
+  @override
+  State<GiveInformation> createState() => _GiveInformationState();
+}
+
+class _GiveInformationState extends State<GiveInformation> {
   // initializing all controllers of text field
   final TextEditingController _firstName = TextEditingController();
 
@@ -20,22 +37,7 @@ class GiveInformation extends StatelessWidget {
   final TextEditingController _gender = TextEditingController();
 
   final TextEditingController _age = TextEditingController();
-  GiveInformation(
-      {super.key,
-      required this.addressOfIncident,
-      required this.dateOfIncident,
-      required this.districtOfIncident,
-      required this.suspectAddress,
-      required this.suspectName,
-      required this.detailOfIncident,
-      required this.reportCrime});
-  final String reportCrime;
-  final String detailOfIncident;
-  final String dateOfIncident;
-  final String addressOfIncident;
-  final String districtOfIncident;
-  final String suspectName;
-  final String suspectAddress;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,7 +47,7 @@ class GiveInformation extends StatelessWidget {
         centerTitle: true,
         leading: IconButton(
           color: Colors.white,
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             // Navigator.push(context,
             //     MaterialPageRoute(builder: (context) => const SelectCrime()));
@@ -111,21 +113,20 @@ class GiveInformation extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 15),
-              Text(
+              const Text(
                 'Last Name',
                 textAlign: TextAlign.justify,
                 style: TextStyle(color: Colors.black),
               ),
               TextField(
                 controller: _lastName,
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
                 decoration: InputDecoration(
                   isDense: true,
-                  contentPadding: EdgeInsets.all(12),
-                  labelStyle: TextStyle(
+                  contentPadding: const EdgeInsets.all(12),
+                  labelStyle: const TextStyle(
                     color: Colors.black,
                     fontFamily: 'Poppins',
-                    // fontWeight: FontWeight.w400,
                     letterSpacing: 0.20,
                   ),
                   enabledBorder: OutlineInputBorder(
@@ -137,46 +138,45 @@ class GiveInformation extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 15),
-              Text(
+              const Text(
                 'CNIC',
                 textAlign: TextAlign.justify,
                 style: TextStyle(color: Colors.black),
               ),
               TextField(
                 controller: _cnic,
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
                 decoration: InputDecoration(
                   isDense: true,
-                  contentPadding: EdgeInsets.all(12),
-                  labelStyle: TextStyle(
+                  contentPadding: const EdgeInsets.all(12),
+                  labelStyle: const TextStyle(
                     color: Colors.black,
                     fontFamily: 'Poppins',
                     letterSpacing: 0.20,
                   ),
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xFFCBD5E1)),
+                    borderSide: const BorderSide(color: Color(0xFFCBD5E1)),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   filled: true,
-                  fillColor: Color(0x66F1F5F9),
+                  fillColor: const Color(0x66F1F5F9),
                 ),
               ),
               SizedBox(height: 15),
-              Text(
+              const Text(
                 'Phone Number',
                 textAlign: TextAlign.justify,
                 style: TextStyle(color: Colors.black),
               ),
               TextField(
                 controller: _phoneNumber,
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
                 decoration: InputDecoration(
                   isDense: true,
-                  contentPadding: EdgeInsets.all(12),
-                  labelStyle: TextStyle(
+                  contentPadding: const EdgeInsets.all(12),
+                  labelStyle: const TextStyle(
                     color: Colors.black,
                     fontFamily: 'Poppins',
-                    // fontWeight: FontWeight.w400,
                     letterSpacing: 0.20,
                   ),
                   enabledBorder: OutlineInputBorder(
@@ -188,99 +188,63 @@ class GiveInformation extends StatelessWidget {
                 ),
               ),
               SizedBox(height: 15),
-              Text(
+              const Text(
                 'Gender',
                 textAlign: TextAlign.justify,
                 style: TextStyle(color: Colors.black),
               ),
               TextField(
                 controller: _gender,
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
                 decoration: InputDecoration(
                   isDense: true,
-                  contentPadding: EdgeInsets.all(12),
-                  labelStyle: TextStyle(
+                  contentPadding: const EdgeInsets.all(12),
+                  labelStyle: const TextStyle(
                     color: Colors.black,
                     fontFamily: 'Poppins',
                     // fontWeight: FontWeight.w400,
                     letterSpacing: 0.20,
                   ),
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xFFCBD5E1)),
+                    borderSide: const BorderSide(color: Color(0xFFCBD5E1)),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   filled: true,
-                  fillColor: Color(0x66F1F5F9),
+                  fillColor: const Color(0x66F1F5F9),
                 ),
               ),
               SizedBox(height: 15),
-              Text(
+              const Text(
                 'Age',
                 textAlign: TextAlign.justify,
                 style: TextStyle(color: Colors.black),
               ),
               TextField(
                 controller: _age,
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
                 decoration: InputDecoration(
                   isDense: true,
-                  contentPadding: EdgeInsets.all(12),
-                  labelStyle: TextStyle(
+                  contentPadding: const EdgeInsets.all(12),
+                  labelStyle: const TextStyle(
                     color: Colors.black,
                     fontFamily: 'Poppins',
                     // fontWeight: FontWeight.w400,
                     letterSpacing: 0.20,
                   ),
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Color(0xFFCBD5E1)),
+                    borderSide: const BorderSide(color: Color(0xFFCBD5E1)),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   filled: true,
-                  fillColor: Color(0x66F1F5F9),
+                  fillColor: const Color(0x66F1F5F9),
                 ),
               ),
               SizedBox(height: 75),
               ElevatedButton(
                 onPressed: () {
-                  try {
-                    // generate unique id
-                    String id =
-                        DateTime.now().millisecondsSinceEpoch.toString();
-                    // adds the data to firebase with collection name criminals as above written
-                    fireStore.doc(id).set({
-                      'Crime Information': reportCrime.toString(),
-                      'Detail of Incident': detailOfIncident.toString(),
-                      'Date of Incident': dateOfIncident.toString(),
-                      'Address of Incident': addressOfIncident.toString(),
-                      'District of Incident': districtOfIncident.toString(),
-                      'Suspect Name': suspectName.toString(),
-                      'Suspect Address': suspectAddress.toString(),
-                      'First Name': _firstName.text.toString(),
-                      'Last Name': _lastName.text.toString(),
-                      'CNIC': _cnic.text.toString(),
-                      'Phone Number': _phoneNumber.text.toString(),
-                      'Gender': _gender.text.toString(),
-                      'Age': _age.text.toString(),
-                      'id': id,
-                      // createAt,updateAt,active shows the date and time when table is created and active shows the table is active or in use or not.
-                      'createAt': DateTime.now(),
-                      'updateAt': DateTime.now(),
-                      'active': true,
-                    }).then((value) {
-                      Utils().showToast(context, 'Successfully Added');
-                    }).onError((error, stackTrace) {
-                      // show toast shows the mssg on bottom of screen
-                      Utils().showToast(context, error.toString());
-                    });
-                  } catch (e) {
-                    // throws exception if data not added successfully
-                    Utils().showToast(
-                      context,
-                      e.toString(),
-                    );
-                  }
+                  addButtonPress();
                 },
-                child: Text(
+                child: const Text(
                   'Add',
                   style: TextStyle(
                     color: Colors.white,
@@ -306,7 +270,7 @@ class GiveInformation extends StatelessWidget {
         children: [
           Text(
             label,
-            style: TextStyle(
+            style: const TextStyle(
               color: Color(0xFF737373),
               fontSize: 15,
               fontFamily: 'Gilroy-Medium',
@@ -314,11 +278,48 @@ class GiveInformation extends StatelessWidget {
               height: 1.5,
             ),
           ),
-          TextField(
-              // Add text field properties
-              ),
+          const TextField(),
         ],
       ),
     );
+  }
+
+  void addButtonPress() async {
+    try {
+      if (_age.text.isEmpty ||
+          _cnic.text.isEmpty ||
+          _firstName.text.isEmpty ||
+          _gender.text.isEmpty ||
+          _lastName.text.isEmpty ||
+          _phoneNumber.text.isEmpty) {
+        Utils().showToast(context, 'Text box should not be empty');
+      } else {
+        await FirebaseMethods().addFir(
+            context,
+            widget.reportCrime,
+            widget.detailOfIncident,
+            widget.dateOfIncident,
+            widget.addressOfIncident,
+            widget.districtOfIncident,
+            widget.suspectName,
+            widget.suspectAddress,
+            _firstName.text,
+            _lastName.text,
+            _cnic.text,
+            _phoneNumber.text,
+            _gender.text,
+            _age.text);
+      }
+      // ignore: use_build_context_synchronously
+      Utils().showToast(
+        context,
+        'Add successfully',
+      );
+    } catch (e) {
+      Utils().showToast(
+        context,
+        e.toString(),
+      );
+    }
   }
 }

@@ -227,6 +227,7 @@ class _SignUpState extends State<SignUp> {
                         fontSize: 13,
                         fontFamily: 'Poppins',
                         fontWeight: FontWeight.w500,
+                        
                         letterSpacing: 0.20,
                       ),
                     ),

@@ -1,9 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crime_detection/utils/toast.dart';
-import 'package:crime_detection/windows/update_officer.dart';
 import 'package:crime_detection/windows/view_fir.dart';
-import 'package:crime_detection/windows/view_officer.dart';
-import 'package:crime_detection/windows/view_order.dart';
 import 'package:flutter/material.dart';
 
 class DetailsOfFIR extends StatefulWidget {
@@ -47,7 +44,6 @@ class _DetailsOfFIRState extends State<DetailsOfFIR> {
       FirebaseFirestore.instance.collection('FirDetails').snapshots();
   CollectionReference ref = FirebaseFirestore.instance.collection('FirDetails');
   // bool _isLoading = false;
-//
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -199,7 +195,9 @@ class _DetailsOfFIRState extends State<DetailsOfFIR> {
                 ElevatedButton(
                   onPressed: () async {
                     await ref.doc(widget.id.toString()).delete();
+                    // ignore: use_build_context_synchronously
                     Utils().showToast(context, 'Deleted Successfully!!!');
+                    // ignore: use_build_context_synchronously
                     Navigator.push(
                       context,
                       MaterialPageRoute(

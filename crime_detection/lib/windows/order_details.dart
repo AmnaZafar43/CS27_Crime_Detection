@@ -1,7 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:crime_detection/utils/toast.dart';
-import 'package:crime_detection/windows/update_officer.dart';
-import 'package:crime_detection/windows/view_officer.dart';
 import 'package:crime_detection/windows/view_order.dart';
 import 'package:flutter/material.dart';
 

@@ -2,6 +2,8 @@ import 'package:crime_detection/firebase/firebase_methods.dart';
 import 'package:crime_detection/windows/police_dashboard.dart';
 import 'package:flutter/material.dart';
 
+import '../utils/toast.dart';
+
 class AddCriminal extends StatefulWidget {
   // This file adds functionality to add criminal by taking his name,age etc and store data in firebase.
   const AddCriminal({super.key});
@@ -11,8 +13,9 @@ class AddCriminal extends StatefulWidget {
 }
 
 class _AddCriminalState extends State<AddCriminal> {
+  bool isLoading = false;
   FirebaseMethods firebaseMethods = FirebaseMethods();
-// initializing all controllers of text field which 
+// initializing all controllers of text field which
   final TextEditingController _firstName = TextEditingController();
 
   final TextEditingController _lastName = TextEditingController();
@@ -327,7 +330,7 @@ class _AddCriminalState extends State<AddCriminal> {
               ElevatedButton(
                 // this button perfoms main functionality
                 onPressed: () {
-                  onSave();
+                  addButtonPress();
                 },
                 child: const Text(
                   // this is add button text
@@ -370,17 +373,41 @@ class _AddCriminalState extends State<AddCriminal> {
       ),
     );
   }
-
-  void onSave() async {
-    await firebaseMethods.addCriminal(
+  void addButtonPress() async {
+    try {
+      setState(() {
+        isLoading = true;
+      });
+      if (_firstName.text.isEmpty ||
+          _lastName.text.isEmpty ||
+          _age.text.isEmpty ||
+          _gender.text.isEmpty ||
+          _address.text.isEmpty ||
+          _charge.text.isEmpty ||
+          _wanted.text.isEmpty) {
+        Utils().showToast(context, 'Text box should not be empty');
+      } else {
+        await FirebaseMethods().addCriminal(
+            context,
+            _firstName.text,
+            _lastName.text,
+            _age.text,
+            _gender.text,
+            _address.text,
+            _charge.text,
+            dateTime!,
+            _wanted.text);
+      }
+      // ignore: use_build_context_synchronously
+      Utils().showToast(context,'Add successfully',);
+    } catch (e) {
+      Utils().showToast(
         context,
-        _firstName.text,
-        _lastName.text,
-        _age.text,
-        _gender.text,
-        _address.text,
-        _charge.text,
-        dateTime!,
-        _wanted.text);
+        e.toString(),
+      );
+    }
+    setState(() {
+      isLoading = false;
+    });
   }
 }
